@@ -17,4 +17,4 @@ nav{flex-wrap:wrap}.chat-heading{display:flex;justify-content:space-between;alig
 
 .research-heading{margin-top:2rem;align-items:start}.research-heading select{min-width:0;width:100%}.research-card{overflow-wrap:anywhere}.research-card li{margin-bottom:1.2rem}.research-heading>div{min-width:0}
 
-footer .credits{font-size:13px;color:var(--ink);margin-bottom:10px}
+.brand-group{min-width:0}.header-credit{font-size:12px;line-height:1.4;color:var(--muted);margin:3px 0 0;max-width:850px}.local{flex-shrink:0}@media(max-width:650px){header{align-items:flex-start;flex-direction:column;gap:8px}.header-credit{font-size:11px}}
