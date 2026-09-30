@@ -7,7 +7,7 @@ import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
 REPOSITORY_FILES = [
-    'index.html', 'README.md', 'DEPLOYMENT.md', 'EVIDENCE.md', 'CHATBOT.md',
+    'index.html', 'assets/figure1_tm_cycle.png', 'README.md', 'DEPLOYMENT.md', 'EVIDENCE.md', 'CHATBOT.md',
     'AI_BOT_INTEGRATION_PLAN.md', 'RESEARCH_DATABASE.md', '.gitignore', 'vercel.json',
     'data/research_catalog.json', 'data/research_findings.csv', 'scripts/research.py', 'tests/test_research.py',
     '.github/workflows/pages.yml', 'prompts/educator-system.md',
@@ -38,7 +38,7 @@ def main():
     release = ROOT / 'release'
     release.mkdir(exist_ok=True)
     with zipfile.ZipFile(release / 'achievego-static-site.zip', 'w', zipfile.ZIP_DEFLATED) as archive:
-        for name in ['index.html', '.nojekyll', 'data/evidence_library.csv', 'data/proposed_mappings.csv', 'data/research_findings.csv']:
+        for name in ['index.html', '.nojekyll', 'assets/figure1_tm_cycle.png', 'data/evidence_library.csv', 'data/proposed_mappings.csv', 'data/research_findings.csv']:
             archive.write(ROOT / '_site' / name, name)
     with zipfile.ZipFile(release / 'achievego-github-repository.zip', 'w', zipfile.ZIP_DEFLATED) as archive:
         for path in repository_files(ROOT):

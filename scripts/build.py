@@ -128,6 +128,8 @@ def main():
     (site / 'data').mkdir(parents=True)
     (site / 'index.html').write_text(html)
     (site / '.nojekyll').write_text('')
+    (site / 'assets').mkdir()
+    shutil.copyfile(ROOT / 'assets/figure1_tm_cycle.png', site / 'assets/figure1_tm_cycle.png')
     for name in ['evidence_library.csv', 'proposed_mappings.csv', 'research_findings.csv']:
         shutil.copyfile(ROOT / 'data' / name, site / 'data' / name)
     print(f'Built index.html, review CSVs, and _site/: {len(db["evidence_records"])} records; {len(db["sources"])} sources')

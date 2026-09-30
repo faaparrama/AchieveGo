@@ -4,7 +4,7 @@ import unittest
 from urllib.parse import urljoin, urlparse
 
 ROOT = Path(__file__).resolve().parents[1]
-PUBLIC_FILES = {'index.html', '.nojekyll', 'data/evidence_library.csv', 'data/proposed_mappings.csv', 'data/research_findings.csv'}
+PUBLIC_FILES = {'index.html', '.nojekyll', 'assets/figure1_tm_cycle.png', 'data/evidence_library.csv', 'data/proposed_mappings.csv', 'data/research_findings.csv'}
 
 
 class Links(HTMLParser):
@@ -22,6 +22,7 @@ class SiteTests(unittest.TestCase):
         actual = {str(p.relative_to(site)) for p in site.rglob('*') if p.is_file()}
         self.assertEqual(actual, PUBLIC_FILES)
         self.assertEqual((site / 'index.html').read_bytes(), (ROOT / 'index.html').read_bytes())
+        self.assertEqual((site / 'assets/figure1_tm_cycle.png').read_bytes(), (ROOT / 'assets/figure1_tm_cycle.png').read_bytes())
 
     def test_project_pages_relative_paths(self):
         parser = Links()
