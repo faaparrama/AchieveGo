@@ -1,5 +1,9 @@
 # Publish AchieveGo on Vercel or GitHub Pages
 
+**Live reviewer site:** https://faaparrama.github.io/AchieveGo/
+
+**Website source repository:** https://github.com/faaparrama/AchieveGo
+
 The prototype is a static website, including the local evidence chatbot. Its scripts, evidence, and styles are bundled into the page. No backend, paid AI service, API key, or runtime WWC connection is required. The AI-connected bot and selected-user authentication will be added with Supabase later; this release does not enforce educator login.
 
 ## Vercel — recommended for the current demo
@@ -57,7 +61,9 @@ Python needs only its standard library. The JavaScript checks require Node or ma
 
 ## Deployment status and troubleshooting
 
-The local build and interaction checks have passed. **No GitHub repository has been created or pushed by this work, and no live deployment has been performed.** Account settings and the actual GitHub Actions run still need to be exercised in your repository.
+The prototype-only source was published to `faaparrama/AchieveGo` on September 30, 2026. GitHub Pages uses the repository-root workflow, with `ENABLE_GITHUB_PAGES=true`. The deployment run succeeded; the live page and three CSVs matched the tested local build by SHA-256. The enclosing research project, including the manuscript, is a separate local repository and must not be pushed to this website remote.
+
+For later updates, edit the local `prototype/src/` or curated `data/` files, run `python3 scripts/package_release.py`, and copy the extracted **contents** of `release/achievego-github-repository.zip` into a separate checkout of the website repository. Review the staged file list before committing and pushing `main`. This keeps working manuscripts and research files out of the public source. GitHub Pages deploys from successful pushes to `main`; use branches for work in progress and retain a tag for the version cited in the journal.
 
 - **404:** check that Pages is enabled, a deployment completed, and `index.html` is at the published root. Use the URL GitHub displays, including the repository path.
 - **Workflow absent:** `.github/workflows/pages.yml` must be at the repository root, not inside a nested `prototype` folder.

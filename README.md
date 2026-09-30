@@ -1,12 +1,16 @@
 # AchieveGo evidence prototype
 
+**Live reviewer demonstration:** https://faaparrama.github.io/AchieveGo/
+
+**Prototype-only source:** https://github.com/faaparrama/AchieveGo
+
 ### Consider: Grow your talent
 
 Open [**index.html**](index.html) in a browser. It is a self-contained page and works offline. Only following a source link opens an external website. No package installation, AI key, server, student-data upload, or account is needed.
 
 Start with Maya for mathematics plus challenge, Noor for an explicit well-being evidence gap, or Jordan for outcome-specific Check & Connect evidence. Select **Add to plan**, then **Export review plan** to download a JSON document for discussion. The file includes blank implementation and follow-up fields; the app does not collect actual outcomes or persist learner records.
 
-The website is ready for **Vercel or GitHub Pages**. Follow [DEPLOYMENT.md](DEPLOYMENT.md) for setup. Choose **Ask AchieveGo** to try the new educator chatbot: it searches a local index and returns cited evidence with authored response templates. No AI provider is connected yet. See [CHATBOT.md](CHATBOT.md) and the [versioned system prompt](prompts/educator-system.md). Read [EVIDENCE.md](EVIDENCE.md) for research boundaries.
+The reviewer demo is published on **GitHub Pages**. Follow [DEPLOYMENT.md](DEPLOYMENT.md) for updates. Choose **Ask AchieveGo** to try the educator chatbot: it searches a local index and returns cited evidence with authored response templates. No AI provider is connected yet. See [CHATBOT.md](CHATBOT.md) and the [versioned system prompt](prompts/educator-system.md). Read [EVIDENCE.md](EVIDENCE.md) for research boundaries.
 
 ## What is included
 
@@ -81,3 +85,7 @@ These are software and source-integrity checks, not scientific validation of int
 ## September 22 research expansion checks
 
 Validation on September 22: 23 Python tests, 22 matching/export assertions and 20 chatbot assertions passed; the extracted source release also rebuilt successfully. The browser harness now includes research-filter and outcome checks, but automated Chrome runs timed out locally, so those new browser interactions have not been verified by a completed browser run.
+
+## September 30 reviewer deployment
+
+The prototype-only repository was published to GitHub Pages. The source release rebuilt from a fresh extraction and passed 23 Python tests, 22 matching/export assertions, 20 chatbot assertions, and 33 headless-browser assertions. The GitHub Actions build and deployment succeeded. The live page and all three downloadable CSVs returned HTTP 200 and matched the locally tested build by SHA-256. These checks establish deployment and software behavior, not the educational effectiveness of recommendations.
