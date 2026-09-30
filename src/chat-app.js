@@ -10,16 +10,16 @@
   function contextSignature() { return JSON.stringify(context()); }
   function preview() {
     var c = context(), box = $('chat-context-preview'); box.replaceChildren();
-    if (!c) { box.appendChild(node('p','General evidence review. No scenario context is included.','small muted')); return; }
+    if (!c) { box.appendChild(node('p','No scenario is included. The response will review evidence in general terms.','small muted')); return; }
     box.appendChild(node('p','Grade ' + c.grade + ' · ' + (c.subject === 'any' ? 'School participation' : c.subject) + '\n' + db.profiles[c.profile].name,'chat-context-title'));
-    box.appendChild(node('p','Goals: ' + (c.needs.map(function (n) { return db.needs[n]; }).join('; ') || 'None confirmed'), 'small'));
+    box.appendChild(node('p','Selected goals: ' + (c.needs.map(function (n) { return db.needs[n]; }).join('; ') || 'None confirmed'), 'small'));
     box.appendChild(node('p','Documented scenario labels: ' + (c.labels.map(function (n) { return db.labels[n].name; }).join('; ') || 'None') + (c.gifted ? '. Gifted identification recorded.' : ''),'small muted'));
   }
   function welcome(message) {
     var item = node('article',null,'chat-message assistant');
     item.appendChild(node('p','ACHIEVEGO · LOCAL EVIDENCE DEMO','message-label'));
-    item.appendChild(node('h3','Start with a question about learning.'));
-    item.appendChild(node('p',message || 'I can search the curated library, explain applicability, and outline a review sequence. Choose a prompt or ask about mathematics, reading, school participation, or advanced opportunities.'));
+    item.appendChild(node('h3','Begin with an educational question.'));
+    item.appendChild(node('p',message || 'Ask about mathematics, reading, school participation, or advanced opportunities. The local index will show relevant records, their limits, and questions for team review.'));
     item.appendChild(node('p','Responses use authored templates and source records. No AI model is connected.','small muted'));
     $('chat-messages').appendChild(item);
   }
@@ -28,7 +28,7 @@
   }
   function sync() {
     preview(); var next = contextSignature();
-    if (contextKey && next !== contextKey) reset('The scenario context changed. A new conversation has started so learner contexts remain separate.');
+    if (contextKey && next !== contextKey) reset('The learner context changed. This conversation has restarted to keep scenarios separate.');
     contextKey = next;
   }
   function evidenceCard(row, task, signature) {
@@ -51,7 +51,7 @@
       button.disabled = window.AGWorkspace.selected().indexOf(r.id) >= 0;
       button.addEventListener('click',function () {
         if (signature !== contextSignature() || !window.AGWorkspace.addEvidence(r.id)) { $('chat-status').textContent = 'The context changed. Review this evidence again before adding it.'; return; }
-        button.disabled = true; button.textContent = 'In review plan'; $('chat-status').textContent = 'Evidence added. Export the review plan from Explore a learner.';
+        button.disabled = true; button.textContent = 'In review plan'; $('chat-status').textContent = 'Record added for review. Export the plan from Explore a learner.';
       }); box.appendChild(button);
     }
     return box;
@@ -77,7 +77,7 @@
     try {
       var request = {message:message.trim(),task:task || 'auto',context:context(),evidence_ids:context() ? window.AGWorkspace.selected() : [],library_version:db.version,index_hash:index.sha256};
       var response = AGChatEngine.respond(db,index,config,request);
-      var item = node('article',null,'chat-message educator'); item.appendChild(node('p','YOU','message-label')); item.appendChild(node('p',request.message)); $('chat-messages').appendChild(item);
+      var item = node('article',null,'chat-message educator'); item.appendChild(node('p','YOUR QUESTION','message-label')); item.appendChild(node('p',request.message)); $('chat-messages').appendChild(item);
       renderResponse(response,contextSignature()); turns.push({request:request,response:response});
       $('chat-input').value = ''; $('chat-export').disabled = false; $('chat-status').textContent = 'Searched ' + index.documents.length + ' indexed records locally. No provider call was made.';
       item.scrollIntoView({behavior:'auto',block:'nearest'});

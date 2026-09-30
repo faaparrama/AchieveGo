@@ -56,7 +56,7 @@ var AGChatEngine = (function () {
     if (request.context && request.context.synthetic !== true) throw new Error('Use a fictional scenario in this demonstration.');
     var result = retrieve(db,index,request), rows = result.rows, task = result.task;
     var response = {mode:config.mode,prompt_version:config.prompt_version,index_hash:index.sha256,library_version:db.version,
-      title:'Evidence to explore', paragraphs:[], evidence:rows, proposals:[], questions:[], task:task};
+      title:'Evidence for team review', paragraphs:[], evidence:rows, proposals:[], questions:[], task:task};
     var gradeMention = request.message.match(/\bgrade\s+(\d{1,2})\b/i);
     if (gradeMention && request.context && Number(gradeMention[1]) !== request.context.grade) {
       response.title = 'Confirm the grade context'; response.evidence = [];
@@ -73,37 +73,37 @@ var AGChatEngine = (function () {
       return response;
     }
     if (/\b(adhd|autis\w*|dyslex\w*|diagnos\w*|twice.exceptional)\b/i.test(request.message)) {
-      response.paragraphs.push('This library does not establish a treatment effect for a particular diagnosis combined with an AchieveGo profile. Confirm the functional need, domain strengths, and learner preferences before considering an intervention.');
+      response.paragraphs.push('This library has no established treatment effect for a particular diagnosis combined with a profile. Review the learner\'s domain strengths, documented needs, and preferences before considering an intervention.');
     }
     if (result.topics.indexOf('wellbeing') >= 0 || (result.assessment && result.assessment.gaps.indexOf('wellbeing') >= 0)) {
-      response.paragraphs.push('There is no applicable well-being intervention match in this starter set. Explore the concern with the learner and the appropriate school support team. Reading, mathematics, and dropout findings do not establish treatment of distress. Appropriate intellectual challenge can still be considered.');
+      response.paragraphs.push('The starter library has no applicable well-being intervention record. Explore the concern with the learner and appropriate school support staff. The reading, mathematics, and dropout findings do not address distress directly; access to suitable intellectual challenge remains part of the plan.');
     }
     if (!rows.length) {
       response.title = 'A gap in this small library';
-      response.paragraphs.push('I could not find a relevant record for that question in the 12-record index. This is a limit of the starter library, not evidence that effective support is unavailable. Try a specific topic such as mathematical reflection, decoding, school attendance, or enrichment.');
+      response.paragraphs.push('The 12-record index has no relevant entry for this question. That gap belongs to the starter library; effective support may exist elsewhere. Try a focused topic such as mathematical reflection, decoding, school attendance, or enrichment.');
       response.questions = ['Which learning goal, subject, and grade should the team investigate?'];
       return response;
     }
     if (task === 'compare') {
       response.title = 'Compare evidence and applicability';
-      response.paragraphs.push(rows.length > 1 ? 'The records below can be compared by outcome, population, grade scope, and delivery. Their ratings belong to different evidence frameworks; they do not provide a common ranking of what will work best.' : 'Only one relevant record was found. Choose another approach or broaden the evidence review before making a comparison.');
+      response.paragraphs.push(rows.length > 1 ? 'Compare these records by outcome, studied population, grade scope, and delivery requirements. Each rating retains its source framework; the ratings cannot rank which approach will benefit this learner.' : 'The index returned one relevant record. Broaden the evidence review before comparing approaches.');
     } else if (task === 'assess') {
       response.title = 'Clarify the need before choosing support';
-      response.paragraphs.push('Use these records to identify what needs confirmation, rather than treating a diagnosis or profile as an intervention assignment.');
+      response.paragraphs.push('Use these records to identify the evidence and learner information the team still needs. A diagnosis or profile alone cannot assign an intervention.');
       response.questions.push('What assessment or observation confirms the specific need, and what does the learner say would help?');
       if (request.context) response.paragraphs.push(db.profiles[request.context.profile].question);
     } else if (task === 'plan') {
       response.title = 'A proposed four-week review sequence';
-      response.paragraphs.push('This sequence is an authored AchieveGo planning example, not the duration or protocol evaluated in the cited studies. Confirm the source requirements and staffing before choosing an approach.');
+      response.paragraphs.push('This four-week sequence is an authored planning example, not the duration or protocol evaluated in the cited studies. Confirm source requirements and staffing before choosing an approach.');
       response.proposals = ['Week 1 · Agree one learner-defined goal, record a baseline, and name the responsible educator. Review the original implementation requirements.',
         'Week 2 · Begin an educator-approved approach only when feasible. Record what was delivered, access supports, and any adaptations.',
         'Week 3 · Review delivery and learner feedback. Keep appropriate challenge available; record reasons for changes.',
         'Week 4 · Review the targeted outcome and decide whether to continue, adapt, or reconsider. A change over four weeks does not by itself show causation or validate matching.'];
     } else if (task === 'monitor') {
       response.title = 'Monitor the outcome the evidence addresses';
-      response.paragraphs.push('Agree on a baseline, observation method, review date, and learner feedback. Record unaided, accommodated, and AI-assisted performance separately. A pre/post difference is not proof of an intervention effect.');
+      response.paragraphs.push('Agree on a baseline, observation method, review date, and way to gather learner feedback. Record unaided, accommodated, and AI-assisted performance separately. A before-and-after difference alone cannot establish an intervention effect.');
     } else {
-      response.paragraphs.push(request.context ? 'These records are relevant to the question or selected goals. Their learner applicability is shown separately below. A candidate is a reason for team review, not a validated prediction of benefit.' : 'These are general evidence records. Include a fictional scenario or specify a confirmed need, subject, and grade to review learner applicability.');
+      response.paragraphs.push(request.context ? 'These records relate to the question or selected goals. Review each record\'s population, outcome, and limits before considering it for this learner. Candidate status does not predict individual benefit.' : 'These records provide general research context. Include a fictional scenario or specify a documented need, subject, and grade to examine applicability.');
     }
     if (!response.questions.length) response.questions.push('Which outcome matters most to the learner, and what would a useful change look like?');
     return response;

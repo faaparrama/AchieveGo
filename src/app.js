@@ -22,14 +22,14 @@
     return '<article class="card" data-record="' + esc(r.id) + '"><p class="source-kind">' + esc(source.kind) + ' · ' + esc(source.year) + '</p><div class="card-top"><h3>' + esc(r.title) + '</h3>' + (selectable ? '<label class="check select-card"><input type="checkbox" data-select="' + esc(r.id) + '" ' + (selected.has(r.id) ? 'checked' : '') + '>Add to plan</label>' : '') + '</div>' +
       '<span class="badge ' + (caution ? 'caution' : '') + '">' + esc(r.rating) + '</span><span class="badge">' + esc(grades) + '</span>' +
       '<p class="outcome"><strong>Outcome:</strong> ' + esc(r.outcome) + '</p><p>' + esc(r.implementation) + '</p>' +
-      (selectable ? '<p><strong>Proposed match:</strong> ' + row.goals.map(function (n) { return esc(db.needs[n]); }).join(' · ') + '. Team review required.</p>' : '<p><strong>Current scenario:</strong> ' + esc(row.reason) + '</p>') +
+      (selectable ? '<p><strong>Goal for team review:</strong> ' + row.goals.map(function (n) { return esc(db.needs[n]); }).join(' · ') + '. The match remains unvalidated.</p>' : '<p><strong>Applicability in this scenario:</strong> ' + esc(row.reason) + '</p>') +
       '<details><summary>Evidence, applicability & implementation</summary><dl>' +
       '<dt>Source rating framework</dt><dd>' + esc(r.rating_framework) + '; ' + esc(r.locator) + '.</dd>' +
       ('essa_tier' in r ? '<dt>Separate ESSA tier</dt><dd>' + esc(r.essa_tier || 'No tier displayed for this outcome') + '. ' + esc(r.essa_basis) + '.</dd>' : '') +
       '<dt>Population and grade scope</dt><dd>' + esc(r.population) + '. ' + esc(r.grade_basis) + '.</dd>' +
       '<dt>Limits of the evidence</dt><dd>' + esc(r.limitations) + '</dd><dt>Profile × diagnosis evidence</dt><dd>' + esc(r.exact_profile_diagnosis_effect) + '.</dd>' +
       '<dt>AchieveGo mapping rule</dt><dd>' + esc(row.rule.status) + '. ' + esc(row.rule.rationale) + '</dd>' +
-      '<dt>What the team could monitor</dt><dd>' + esc(r.monitor) + ' These monitoring suggestions are not validated by this app.</dd>' +
+      '<dt>Possible measures for review</dt><dd>' + esc(r.monitor) + ' The team should judge whether these measures fit its goal and setting.</dd>' +
       (r.source_discrepancy ? '<dt>Source discrepancy retained</dt><dd>' + esc(r.source_discrepancy) + '</dd>' : '') +
       '<dt>Provenance</dt><dd>' + esc(source.curation_status) + '. Checked ' + esc(source.checked) + '. ' + esc(r.snapshot ? 'Export: ' + r.snapshot : '') + '</dd></dl>' +
       '<a href="' + esc(source.url) + '" target="_blank" rel="noopener">' + esc(source.title) + ' ↗</a></details></article>';
@@ -40,11 +40,11 @@
     selected.forEach(function (id) { if (!result.candidates.some(function (r) { return r.record.id === id; })) selected.delete(id); });
     $('profile-question').textContent = db.profiles[l.profile].question;
     $('result-title').textContent = result.candidates.length + ' candidates for team review';
-    $('questions').innerHTML = l.labels.length ? '<details class="questions" open><summary>Questions informed by documented context</summary>' + l.labels.map(function (key) { return '<p>' + esc(db.labels[key].question) + '</p>'; }).join('') + '<p>No exact profile-by-diagnosis intervention effect is established in this starter library.</p></details>' : '';
-    $('gaps').innerHTML = result.gaps.map(function (key) { return '<div class="gap"><strong>Evidence gap in this starter set · ' + esc(db.needs[key]) + '</strong>' + (key === 'wellbeing' ? 'Discuss the concern with the learner and the appropriate school support team. Academic or dropout evidence is not substituted for evidence about well-being.' : 'No candidate fits the selected goal, grade, and subject. Broaden the evidence review before selecting an intervention.') + ' This does not establish that effective support is unavailable elsewhere.</div>'; }).join('');
+    $('questions').innerHTML = l.labels.length ? '<details class="questions" open><summary>Questions raised by documented context</summary>' + l.labels.map(function (key) { return '<p>' + esc(db.labels[key].question) + '</p>'; }).join('') + '<p>This library has no established intervention effect for a specific profile and diagnosis combination.</p></details>' : '';
+    $('gaps').innerHTML = result.gaps.map(function (key) { return '<div class="gap"><strong>Evidence gap in this starter set · ' + esc(db.needs[key]) + '</strong>' + (key === 'wellbeing' ? 'Discuss the concern with the learner and appropriate school support staff. The academic and dropout records here do not address well-being directly.' : 'The selected goal, grade, and subject have no matching candidate in this small library. Broaden the evidence review before choosing an approach.') + ' This gap describes the starter library, not the full evidence base.</div>'; }).join('');
     ['support','opportunity'].forEach(function (lane) {
       var rows = result.candidates.filter(function (r) { return r.record.lane === lane; });
-      $(lane + '-cards').innerHTML = rows.length ? rows.map(function (r) { return card(r,true); }).join('') : '<p class="empty">' + (lane === 'opportunity' ? 'Select confirmed readiness and interest for greater challenge to explore opportunities, regardless of profile or gifted identification.' : 'No matching support selected. Confirm a relevant goal, grade, and subject to explore this library.') + '</p>';
+      $(lane + '-cards').innerHTML = rows.length ? rows.map(function (r) { return card(r,true); }).join('') : '<p class="empty">' + (lane === 'opportunity' ? 'Record readiness and interest to review advanced opportunities across profiles and identification categories.' : 'No support record fits the current selection. Confirm the goal, grade, and subject before reviewing this library.') + '</p>';
     });
     var related = result.rows.filter(function (r) { return r.record.source_id === 'cc' && !r.candidate && l.needs.indexOf('offtrack') >= 0; });
     $('related-wrap').hidden = related.length === 0;
@@ -57,7 +57,7 @@
   var catalog = db.research_catalog;
   var typeNames = {meta_analysis: 'Meta-analysis', systematic_review: 'Systematic review', randomized_controlled_trial: 'Randomized controlled trial'};
   var extraSources = catalog.publications.filter(function (p) { return !p.linked_library_source; }).length;
-  $('evidence-counts').textContent = db.evidence_records.length + ' curated planning records, plus ' + catalog.publications.length + ' research publications with ' + catalog.findings.length + ' outcome extractions. ' + (Object.keys(db.sources).length + extraSources) + ' distinct sources in total; counts are not independent programs or studies.';
+  $('evidence-counts').textContent = db.evidence_records.length + ' curated planning records and ' + catalog.publications.length + ' research publications with ' + catalog.findings.length + ' outcome extractions. These represent ' + (Object.keys(db.sources).length + extraSources) + ' distinct sources, not independent programs or studies.';
   function researchCard(p) {
     var findings = catalog.findings.filter(function (f) { return f.publication_id === p.id; });
     var rows = findings.map(function (f) {
@@ -74,7 +74,7 @@
       var text = JSON.stringify(p) + JSON.stringify(catalog.findings.filter(function (f) { return f.publication_id === p.id; }));
       return typeFit && text.toLowerCase().indexOf(q) >= 0;
     });
-    $('research-count').textContent = publications.length + ' research publications shown. Source types can overlap: a systematic review may include a meta-analysis.';
+    $('research-count').textContent = publications.length + ' research publications shown. A systematic review may also include a meta-analysis.';
     $('research-cards').innerHTML = publications.length ? publications.map(researchCard).join('') : '<p>No research publications match these filters.</p>';
   }
   $('research-type').addEventListener('change', function () { renderLibrary(); });
@@ -113,7 +113,7 @@
   });
   $('profile-table').innerHTML = '<table><caption>Research group means (z)</caption><thead><tr><th scope="col">Profile</th><th scope="col">Motivation</th><th scope="col">Well-being</th></tr></thead><tbody>' + ['P1','P2','P3'].map(function (p) { return '<tr><th scope="row">' + esc(db.profiles[p].name) + '</th><td>' + db.profiles[p].group_means['School motivation'].toFixed(2) + '</td><td>' + db.profiles[p].group_means['School well-being'].toFixed(2) + '</td></tr>'; }).join('') + '</tbody></table>';
   var s = db.wwc_snapshot;
-  $('snapshot').innerHTML = '<p><strong>' + s.unique_study_ids.toLocaleString() + ' distinct study IDs</strong><br>' + s.rows['Studies.csv'].toLocaleString() + ' study rows · ' + s.rows['Findings.csv'].toLocaleString() + ' finding rows · ' + s.rows['InterventionReports.csv'] + ' intervention-report rows.</p><p class="muted">Downloaded ' + esc(s.retrieved_at.slice(0,10)) + '. Raw snapshot retained; curated cards require a separate review.</p>';
+  $('snapshot').innerHTML = '<p><strong>' + s.unique_study_ids.toLocaleString() + ' distinct study IDs</strong><br>' + s.rows['Studies.csv'].toLocaleString() + ' study rows · ' + s.rows['Findings.csv'].toLocaleString() + ' finding rows · ' + s.rows['InterventionReports.csv'] + ' intervention-report rows.</p><p class="muted">Retrieved ' + esc(s.retrieved_at.slice(0,10)) + '. The raw export is retained; each planning card requires separate curation.</p>';
   window.AGWorkspace = {
     context: function () { return JSON.parse(JSON.stringify(learner())); },
     selected: function () { return Array.from(selected); },
