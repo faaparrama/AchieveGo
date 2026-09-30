@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "mode": "local-evidence-demo",
+  "prompt_version": "1.1.0",
+  "max_message_characters": 1200,
+  "max_turns": 12,
+  "provider_connected": false
+}

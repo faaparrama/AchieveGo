@@ -1,0 +1,82 @@
+/* Append to a temporary copy of the built HTML for headless-browser smoke tests. */
+(async function () {
+  var passed = 0;
+  function assert(condition, message) { if (!condition) throw new Error(message); passed++; }
+  function el(id) { return document.getElementById(id); }
+  function change(id,value) { el(id).value = value; el(id).dispatchEvent(new Event('change',{bubbles:true})); }
+  var marker = document.createElement('pre'); marker.id = 'browser-test-result'; document.body.appendChild(marker);
+  try {
+    assert(el('result-title').textContent === '3 candidates for team review','initial cards');
+    document.querySelector('[data-select="math-reflection"]').click();
+    assert(el('selected-count').textContent === '1' && !el('export').disabled,'plan selection');
+    change('preset','noor');
+    assert(el('selected-count').textContent === '0','scenario resets plan');
+    assert(el('gaps').textContent.includes('Well-being'),'visible wellbeing gap');
+    assert(el('opportunity-cards').querySelectorAll('.card').length === 2,'distressed learner retains opportunity');
+    change('preset','jordan');
+    assert(el('support-cards').querySelector('[data-record="cc-stay"]'),'school retention outcome');
+    assert(!el('support-cards').querySelector('[data-record="cc-progress"]'),'grade-specific boundary');
+    assert(el('related-cards').textContent.includes('No Discernible Effects'),'null finding visible');
+    assert(el('related-cards').textContent.includes('Outside the source grade scope'),'grade discrepancy visible');
+    document.querySelector('[data-select="cc-stay"]').click();
+    var exportedBlob;
+    var original = URL.createObjectURL;
+    URL.createObjectURL = function (blob) { exportedBlob = blob; return original.call(URL,blob); };
+    document.addEventListener('click',function (e) { if (e.target.tagName === 'A' && e.target.download) e.preventDefault(); },true);
+    el('export').click();
+    var plan = JSON.parse(await exportedBlob.text());
+    assert(plan.selected.length === 1 && plan.related_outcome_context.length === 3,'download content includes companion outcomes');
+    el('library-tab').click();
+    assert(el('workspace-view').hidden && !el('library-view').hidden,'tab navigation');
+    el('search').value = 'Check & Connect'; el('search').dispatchEvent(new Event('input'));
+    assert(el('all-cards').querySelectorAll('.card').length === 3,'library search');
+    el('search').value = ''; el('search').dispatchEvent(new Event('input'));
+    assert(el('research-cards').querySelectorAll('.research-card').length === 5,'research catalog shows five publications');
+    change('research-type','randomized_controlled_trial');
+    assert(el('research-cards').querySelectorAll('.research-card').length === 1 && el('research-cards').textContent.includes('growth mindset'),'RCT filter');
+    assert(el('research-cards').textContent.includes('No statistically significant GPA effect'),'null companion outcome retained');
+    assert(!el('research-cards').querySelector('[data-select]'),'research intake cannot add unreviewed recommendations');
+    change('research-type','meta_analysis');
+    assert(el('research-cards').querySelectorAll('.research-card').length === 4,'meta-analysis filter includes systematic reviews with pooling');
+    change('research-type','systematic_review');
+    assert(el('research-cards').querySelectorAll('.research-card').length === 2,'systematic review filter');
+    el('search').value = 'ADHD'; el('search').dispatchEvent(new Event('input'));
+    assert(el('research-cards').querySelectorAll('.research-card').length === 1,'research topic search');
+    el('research-cards').querySelector('details').open = true;
+    assert(document.documentElement.scrollWidth <= window.innerWidth,'research details do not overflow');
+    change('research-type','all'); el('search').value = ''; el('search').dispatchEvent(new Event('input'));
+    change('preset','maya'); el('chat-tab').click();
+    assert(!el('chat-view').hidden && el('workspace-view').hidden,'chat navigation');
+    assert(el('chat-view').textContent.includes('no AI provider connected'),'local mode visible');
+    el('chat-input').value = 'What evidence supports mathematical reflection?';
+    el('chat-form').dispatchEvent(new Event('submit',{bubbles:true,cancelable:true}));
+    assert(el('chat-messages').querySelector('[data-evidence="math-reflection"]'),'chat retrieves cited mathematics evidence');
+    el('chat-messages').querySelector('[data-chat-add="math-reflection"]').click();
+    assert(el('selected-count').textContent === '1','chat adds only selected evidence to review plan');
+    el('chat-input').value = '<img src=x onerror="window.chatInjected=true"> mathematical reflection';
+    el('chat-form').dispatchEvent(new Event('submit',{bubbles:true,cancelable:true}));
+    assert(!el('chat-messages').querySelector('img') && !window.chatInjected,'chat escapes user text');
+    el('chat-export').click();
+    var conversation = JSON.parse(await exportedBlob.text());
+    assert(conversation.mode === 'local-evidence-demo' && conversation.turns.length === 2 && !conversation.provider_connected,'conversation export is labeled and complete');
+    change('preset','jordan');
+    assert(el('chat-messages').querySelectorAll('.educator').length === 0,'context changes reset the conversation');
+    el('chat-input').value = 'What does Check & Connect show?';
+    el('chat-form').dispatchEvent(new Event('submit',{bubbles:true,cancelable:true}));
+    assert(el('chat-messages').querySelectorAll('.chat-evidence').length === 3,'chat retains companion outcomes');
+    assert(!el('chat-messages').querySelector('[data-chat-add="cc-progress"]') && !el('chat-messages').querySelector('[data-chat-add="cc-complete"]'),'chat cannot add null or out-of-grade evidence');
+    el('chat-use-context').click();
+    assert(el('chat-context-preview').textContent.includes('No scenario'),'context opt-out');
+    el('chat-input').value = 'mathematics';
+    el('chat-form').dispatchEvent(new Event('submit',{bubbles:true,cancelable:true}));
+    assert(!el('chat-messages').querySelector('[data-chat-add]'),'general evidence browsing makes no learner assignment');
+    el('chat-clear').click();
+    assert(el('chat-export').disabled && !el('chat-messages').querySelector('.educator'),'clear removes conversation');
+    el('chat-use-context').click(); change('preset','maya');
+    el('chat-input').value = 'Explain the evidence options for this learner';
+    el('chat-form').dispatchEvent(new Event('submit',{bubbles:true,cancelable:true}));
+    window.scrollTo(0,0);
+    assert(document.documentElement.scrollWidth <= window.innerWidth,'no horizontal overflow');
+    marker.textContent = 'PASS: ' + passed + ' browser assertions';
+  } catch (e) { marker.textContent = 'FAIL: ' + e.message; }
+}());

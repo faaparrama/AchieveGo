@@ -1,0 +1,596 @@
+{
+  "version": "0.1.0",
+  "date": "2026-09-13",
+  "status": "Synthetic demonstration; expert curation and matching validation pending",
+  "sources": {
+    "pg8": {
+      "title": "Improving Adolescent Literacy",
+      "url": "https://ies.ed.gov/ncee/wwc/PracticeGuide/8",
+      "year": "2008",
+      "kind": "WWC practice guide",
+      "checked": "2026-09-13",
+      "curation_status": "Prototype extraction; independent review pending"
+    },
+    "pg16": {
+      "title": "Improving Mathematical Problem Solving in Grades 4 Through 8",
+      "url": "https://ies.ed.gov/ncee/wwc/PracticeGuide/16",
+      "year": "2012; revised 2018",
+      "kind": "WWC practice guide",
+      "checked": "2026-09-13",
+      "curation_status": "Prototype extraction; independent review pending"
+    },
+    "pg24": {
+      "title": "Preventing Dropout in Secondary Schools",
+      "url": "https://ies.ed.gov/ncee/wwc/PracticeGuide/24",
+      "year": "2017",
+      "kind": "WWC practice guide",
+      "checked": "2026-09-13",
+      "curation_status": "Prototype extraction; independent review pending"
+    },
+    "pg29": {
+      "title": "Providing Reading Interventions for Students in Grades 4–9",
+      "url": "https://ies.ed.gov/ncee/wwc/PracticeGuide/29",
+      "year": "2022",
+      "kind": "WWC practice guide",
+      "checked": "2026-09-13",
+      "curation_status": "Prototype extraction; independent review pending"
+    },
+    "cc": {
+      "title": "Check & Connect — Dropout Prevention",
+      "url": "https://ies.ed.gov/ncee/wwc/EvidenceSnapshot/78",
+      "year": "2015",
+      "kind": "WWC intervention report",
+      "checked": "2026-09-13",
+      "curation_status": "Prototype extraction; independent review pending"
+    },
+    "kim": {
+      "title": "Kim (2016), A Meta-Analysis of the Effects of Enrichment Programs on Gifted Students",
+      "url": "https://doi.org/10.1177/0016986216630607",
+      "year": "2016",
+      "kind": "External research synthesis",
+      "checked": "2026-09-13",
+      "curation_status": "Prototype extraction; independent review pending"
+    },
+    "accel": {
+      "title": "Steenbergen-Hu, Makel, & Olszewski-Kubilius (2016), What One Hundred Years of Research Says About the Effects of Ability Grouping and Acceleration on K–12 Students’ Academic Achievement",
+      "url": "https://doi.org/10.3102/0034654316675417",
+      "year": "2016",
+      "kind": "External research synthesis",
+      "checked": "2026-09-13",
+      "curation_status": "Prototype extraction; independent review pending"
+    }
+  },
+  "needs": {
+    "reading_engagement": "Engagement in reading",
+    "decoding": "Difficulty decoding longer words",
+    "comprehension": "Reading comprehension difficulty",
+    "math_reflection": "Monitoring and explaining mathematical thinking",
+    "math_strategies": "Flexibility in mathematical strategies",
+    "offtrack": "Attendance or progress concerns confirmed",
+    "wellbeing": "Well-being or belonging concern",
+    "advanced": "Readiness and interest for greater challenge"
+  },
+  "labels": {
+    "adhd": {
+      "name": "ADHD (documented in scenario)",
+      "question": "Which attention, planning, or task-access needs are actually documented, and which supports does the learner find useful? ADHD alone does not establish a reading or mathematics need."
+    },
+    "autism": {
+      "name": "Autism (documented in scenario)",
+      "question": "Ask about communication, sensory access, predictability, interests, and preferred participation. Do not assume low ability, poor motivation, or the same support needs for every autistic learner."
+    },
+    "sld_reading": {
+      "name": "Specific learning disability: reading",
+      "question": "Confirm the reading component involved and review the existing specialist assessment. A reading disability does not establish difficulty in mathematics or limit advanced content access."
+    },
+    "sld_math": {
+      "name": "Specific learning disability: mathematics",
+      "question": "Confirm the mathematics difficulty and existing specialist supports. General problem-solving guidance is not evidence of a dyscalculia-specific treatment effect."
+    }
+  },
+  "profiles": {
+    "P1": {
+      "name": "P1 · Distressed",
+      "share": "7.7%",
+      "question": "Explore school well-being, belonging, and context with the learner. The profile is not a clinical diagnosis; address identified concerns alongside appropriate intellectual challenge.",
+      "group_means": {
+        "Verbal ability": -0.062,
+        "Numerical ability": -0.176,
+        "Figural ability": -0.174,
+        "School motivation": -0.963,
+        "School well-being": -2.385,
+        "Self-perception": -0.73
+      }
+    },
+    "P2": {
+      "name": "P2 · Disengaged",
+      "share": "14.3%",
+      "question": "Explore relevance, challenge, access barriers, and learner goals before choosing support. Low reported motivation is not evidence of low capacity or school dropout risk.",
+      "group_means": {
+        "Verbal ability": 0.049,
+        "Numerical ability": -0.059,
+        "Figural ability": -0.075,
+        "School motivation": -1.626,
+        "School well-being": -0.4,
+        "Self-perception": -0.25
+      }
+    },
+    "P3": {
+      "name": "P3 · Typical",
+      "share": "78.0%",
+      "question": "Ask about current strengths and unmet needs; a typical group pattern does not rule out disability, advanced readiness, or a need for support.",
+      "group_means": {
+        "Verbal ability": -0.002,
+        "Numerical ability": 0.028,
+        "Figural ability": 0.034,
+        "School motivation": 0.385,
+        "School well-being": 0.301,
+        "Self-perception": 0.114
+      }
+    },
+    "unknown": {
+      "name": "Unassigned / uncertain",
+      "share": null,
+      "question": "No profile assignment is needed to review a documented learning goal. Establish context before interpreting any profile."
+    }
+  },
+  "presets": [
+    {
+      "id": "maya",
+      "name": "Maya · Grade 7 · Mathematics",
+      "profile": "P2",
+      "grade": 7,
+      "subject": "math",
+      "labels": [
+        "adhd"
+      ],
+      "gifted": true,
+      "needs": [
+        "math_reflection",
+        "advanced"
+      ]
+    },
+    {
+      "id": "noor",
+      "name": "Noor · Grade 7 · Well-being & challenge",
+      "profile": "P1",
+      "grade": 7,
+      "subject": "math",
+      "labels": [
+        "autism"
+      ],
+      "gifted": true,
+      "needs": [
+        "wellbeing",
+        "advanced"
+      ]
+    },
+    {
+      "id": "sam",
+      "name": "Sam · Grade 8 · Reading",
+      "profile": "P2",
+      "grade": 8,
+      "subject": "literacy",
+      "labels": [
+        "sld_reading"
+      ],
+      "gifted": true,
+      "needs": [
+        "decoding",
+        "reading_engagement",
+        "advanced"
+      ]
+    },
+    {
+      "id": "jordan",
+      "name": "Jordan · Grade 10 · School participation",
+      "profile": "P2",
+      "grade": 10,
+      "subject": "any",
+      "labels": [
+        "sld_reading"
+      ],
+      "gifted": false,
+      "needs": [
+        "offtrack"
+      ]
+    },
+    {
+      "id": "alex",
+      "name": "Alex · Grade 7 · Mathematical strategies",
+      "profile": "P3",
+      "grade": 7,
+      "subject": "math",
+      "labels": [],
+      "gifted": false,
+      "needs": [
+        "math_strategies"
+      ]
+    }
+  ],
+  "evidence_records": [
+    {
+      "id": "literacy-engagement",
+      "title": "Build engagement in reading",
+      "source_id": "pg8",
+      "locator": "Recommendation 4",
+      "grade_min": 5,
+      "grade_max": 12,
+      "grade_basis": "Guide target grades",
+      "subject": "literacy",
+      "lane": "support",
+      "rating": "Moderate",
+      "rating_framework": "WWC practice-guide recommendation evidence",
+      "outcome": "Adolescent literacy",
+      "population": "Students in grades 5–12; literacy instruction",
+      "implementation": "Review the guide with the teacher; plan meaningful reading choices and engagement supports without lowering text challenge.",
+      "monitor": "Reading engagement alongside an appropriate reading outcome.",
+      "limitations": "Evidence concerns literacy; it does not establish treatment of general distress or ADHD.",
+      "exact_profile_diagnosis_effect": "Not established in this curated record"
+    },
+    {
+      "id": "math-reflection",
+      "title": "Make mathematical thinking visible",
+      "source_id": "pg16",
+      "locator": "Recommendation 2",
+      "grade_min": 4,
+      "grade_max": 8,
+      "grade_basis": "Guide target grades",
+      "subject": "math",
+      "lane": "support",
+      "rating": "Strong",
+      "rating_framework": "WWC practice-guide recommendation evidence",
+      "outcome": "Mathematical problem solving",
+      "population": "Students in grades 4–8",
+      "implementation": "Teach monitoring and reflection during problem solving; preserve the complexity of appropriately challenging problems.",
+      "monitor": "Independent explanations, error checking, and transfer to new problems.",
+      "limitations": "General instructional evidence; no established P1/P2 or diagnosis-specific effect.",
+      "exact_profile_diagnosis_effect": "Not established in this curated record"
+    },
+    {
+      "id": "math-strategies",
+      "title": "Compare mathematical strategies",
+      "source_id": "pg16",
+      "locator": "Recommendation 4",
+      "grade_min": 4,
+      "grade_max": 8,
+      "grade_basis": "Guide target grades",
+      "subject": "math",
+      "lane": "support",
+      "rating": "Moderate",
+      "rating_framework": "WWC practice-guide recommendation evidence",
+      "outcome": "Mathematical problem solving",
+      "population": "Students in grades 4–8",
+      "implementation": "Plan teacher-guided comparison of approaches to the same problem.",
+      "monitor": "Flexible strategy use and explanations on new problems.",
+      "limitations": "This is a guide recommendation, not an evaluated AchieveGo-generated lesson.",
+      "exact_profile_diagnosis_effect": "Not established in this curated record"
+    },
+    {
+      "id": "dropout-monitor",
+      "title": "Review attendance and progress indicators",
+      "source_id": "pg24",
+      "locator": "Recommendation 1",
+      "grade_min": 6,
+      "grade_max": 12,
+      "grade_basis": "Guide target grades",
+      "subject": "any",
+      "lane": "support",
+      "rating": "Minimal",
+      "rating_framework": "WWC practice-guide recommendation evidence",
+      "outcome": "Identifying and responding to risk of dropout",
+      "population": "Secondary students; school monitoring systems",
+      "implementation": "Agree who reviews attendance, behavior, and academic indicators and how concerns trigger coordinated support.",
+      "monitor": "Attendance and progress, with an agreed review date.",
+      "limitations": "Minimal is the source evidence level. Monitoring alone is not proof of improved completion; low motivation alone is not dropout risk.",
+      "exact_profile_diagnosis_effect": "Not established in this curated record"
+    },
+    {
+      "id": "dropout-support",
+      "title": "Coordinate individualized school support",
+      "source_id": "pg24",
+      "locator": "Recommendation 2",
+      "grade_min": 6,
+      "grade_max": 12,
+      "grade_basis": "Guide target grades",
+      "subject": "any",
+      "lane": "support",
+      "rating": "Moderate",
+      "rating_framework": "WWC practice-guide recommendation evidence",
+      "outcome": "Dropout prevention",
+      "population": "Students identified as off track for graduation",
+      "implementation": "School team reviews intensive individualized support described in the guide; confirm staffing and delivery requirements.",
+      "monitor": "Attendance, course progress, and the learner’s experience of support.",
+      "limitations": "Not a mental-health treatment recommendation or a validated profile-specific assignment.",
+      "exact_profile_diagnosis_effect": "Not established in this curated record"
+    },
+    {
+      "id": "reading-decoding",
+      "title": "Target the documented decoding difficulty",
+      "source_id": "pg29",
+      "locator": "Recommendation 1",
+      "grade_min": 4,
+      "grade_max": 9,
+      "grade_basis": "Guide target grades",
+      "subject": "literacy",
+      "lane": "support",
+      "rating": "Strong",
+      "rating_framework": "WWC practice-guide recommendation evidence",
+      "outcome": "Reading intervention: decoding",
+      "population": "Students requiring reading intervention in grades 4–9",
+      "implementation": "A qualified educator reviews explicit instruction for decoding complex words; maintain access to advanced ideas through suitable supports.",
+      "monitor": "Word reading and transfer to connected text.",
+      "limitations": "A diagnostic label alone does not specify the decoding need or establish benefit for a gifted subgroup.",
+      "exact_profile_diagnosis_effect": "Not established in this curated record"
+    },
+    {
+      "id": "reading-comprehension",
+      "title": "Teach a routine for understanding text",
+      "source_id": "pg29",
+      "locator": "Recommendation 3",
+      "grade_min": 4,
+      "grade_max": 9,
+      "grade_basis": "Guide target grades",
+      "subject": "literacy",
+      "lane": "support",
+      "rating": "Strong",
+      "rating_framework": "WWC practice-guide recommendation evidence",
+      "outcome": "Reading intervention: comprehension",
+      "population": "Students requiring reading intervention in grades 4–9",
+      "implementation": "Review the guide’s comprehension practices and select instruction informed by assessment.",
+      "monitor": "Comprehension on new texts, with assistance conditions recorded.",
+      "limitations": "The guide’s evidence level does not validate AI-created instructional materials.",
+      "exact_profile_diagnosis_effect": "Not established in this curated record"
+    },
+    {
+      "id": "cc-stay",
+      "title": "Check & Connect · staying in school",
+      "source_id": "cc",
+      "locator": "Dropout Prevention, protocol 3.0; Staying in School",
+      "grade_min": 9,
+      "grade_max": 12,
+      "grade_basis": "Outcome-specific grades from the evidence snapshot",
+      "subject": "any",
+      "lane": "support",
+      "rating": "Positive Effects",
+      "rating_framework": "WWC intervention-report effectiveness",
+      "outcome": "Staying in School",
+      "population": "High school students with learning, behavioral, or emotional disabilities in the reviewed evidence",
+      "implementation": "A sustained program of mentoring, monitoring, and coordinated support. Confirm program training, staffing, and fidelity requirements; a brief check-in is not the studied program.",
+      "monitor": "Track the stated outcome; keep graduation, school retention, and course progression distinct.",
+      "limitations": "No validated effect for AchieveGo profiles, giftedness, or each diagnostic subgroup. Sample overlap requires team review. No discernible effects does not prove equivalence or benefit.",
+      "exact_profile_diagnosis_effect": "Not established in this curated record",
+      "essa_tier": "Tier 3",
+      "essa_basis": "Outcome table on EvidenceSnapshot/78; a separate framework from effectiveness",
+      "wwc_intervention_id": "312",
+      "protocol": "Dropout Prevention",
+      "protocol_version": "3.0",
+      "num_studies_meeting": 2,
+      "snapshot": "20260913T203009Z-4af307708b",
+      "source_discrepancy": null
+    },
+    {
+      "id": "cc-progress",
+      "title": "Check & Connect · progressing in school",
+      "source_id": "cc",
+      "locator": "Dropout Prevention, protocol 3.0; Progressing in school",
+      "grade_min": 9,
+      "grade_max": 9,
+      "grade_basis": "Outcome-specific grades from the evidence snapshot",
+      "subject": "any",
+      "lane": "support",
+      "rating": "Potentially Positive Effects",
+      "rating_framework": "WWC intervention-report effectiveness",
+      "outcome": "Progressing in school",
+      "population": "High school students with learning, behavioral, or emotional disabilities in the reviewed evidence",
+      "implementation": "A sustained program of mentoring, monitoring, and coordinated support. Confirm program training, staffing, and fidelity requirements; a brief check-in is not the studied program.",
+      "monitor": "Track the stated outcome; keep graduation, school retention, and course progression distinct.",
+      "limitations": "No validated effect for AchieveGo profiles, giftedness, or each diagnostic subgroup. Sample overlap requires team review. No discernible effects does not prove equivalence or benefit.",
+      "exact_profile_diagnosis_effect": "Not established in this curated record",
+      "essa_tier": "Tier 3",
+      "essa_basis": "Outcome table on EvidenceSnapshot/78; a separate framework from effectiveness",
+      "wwc_intervention_id": "312",
+      "protocol": "Dropout Prevention",
+      "protocol_version": "3.0",
+      "num_studies_meeting": 1,
+      "snapshot": "20260913T203009Z-4af307708b",
+      "source_discrepancy": "Bulk report flags grades 9–12; snapshot outcome table lists grade 9. Conservative grade-9 gate used; expert reconciliation pending."
+    },
+    {
+      "id": "cc-complete",
+      "title": "Check & Connect · completing school",
+      "source_id": "cc",
+      "locator": "Dropout Prevention, protocol 3.0; Completing school",
+      "grade_min": 9,
+      "grade_max": 12,
+      "grade_basis": "Outcome-specific grades from the evidence snapshot",
+      "subject": "any",
+      "lane": "support",
+      "rating": "No Discernible Effects",
+      "rating_framework": "WWC intervention-report effectiveness",
+      "outcome": "Completing school",
+      "population": "High school students with learning, behavioral, or emotional disabilities in the reviewed evidence",
+      "implementation": "A sustained program of mentoring, monitoring, and coordinated support. Confirm program training, staffing, and fidelity requirements; a brief check-in is not the studied program.",
+      "monitor": "Track the stated outcome; keep graduation, school retention, and course progression distinct.",
+      "limitations": "No validated effect for AchieveGo profiles, giftedness, or each diagnostic subgroup. Sample overlap requires team review. No discernible effects does not prove equivalence or benefit.",
+      "exact_profile_diagnosis_effect": "Not established in this curated record",
+      "essa_tier": null,
+      "essa_basis": "Outcome table on EvidenceSnapshot/78; a separate framework from effectiveness",
+      "wwc_intervention_id": "312",
+      "protocol": "Dropout Prevention",
+      "protocol_version": "3.0",
+      "num_studies_meeting": 1,
+      "snapshot": "20260913T203009Z-4af307708b",
+      "source_discrepancy": null
+    },
+    {
+      "id": "enrichment",
+      "title": "Review an enrichment opportunity",
+      "source_id": "kim",
+      "locator": "Research synthesis; program selection still required",
+      "grade_min": 1,
+      "grade_max": 12,
+      "grade_basis": "Prototype browsing range 1–12; not verified coverage of every grade in the synthesis. Review program- and age-specific evidence before use",
+      "subject": "any",
+      "lane": "opportunity",
+      "rating": "Positive pooled academic and socioemotional findings",
+      "rating_framework": "External synthesis; no WWC rating",
+      "outcome": "Academic achievement and socioemotional development",
+      "population": "Gifted students in varied enrichment programs",
+      "implementation": "Identify a suitable enrichment opportunity with the learner and check readiness, access, and program evidence.",
+      "monitor": "Domain growth, engagement, and learner-defined goals.",
+      "limitations": "Synthesis-level evidence is not evidence for any specific local project or AI-generated enrichment. Applicability by age, diagnosis, and program requires review; not a treatment for distress.",
+      "exact_profile_diagnosis_effect": "Not established in this curated record"
+    },
+    {
+      "id": "acceleration",
+      "title": "Review subject acceleration",
+      "source_id": "accel",
+      "locator": "Acceleration findings of the second-order meta-analysis",
+      "grade_min": 1,
+      "grade_max": 12,
+      "grade_basis": "Review scope; inspect individual studies",
+      "subject": "any",
+      "lane": "opportunity",
+      "rating": "Academic benefits reported for acceleration",
+      "rating_framework": "External synthesis; no WWC rating",
+      "outcome": "Academic achievement",
+      "population": "K–12; acceleration evidence for advanced learners",
+      "implementation": "A school team considers domain readiness, learner preference, and appropriate placement; this card does not authorize a placement change.",
+      "monitor": "Domain mastery, transition experience, and sustained access to supports.",
+      "limitations": "Readiness for enrichment does not establish readiness for acceleration. Effects depend on comparison group and implementation; no validated profile-by-diagnosis allocation rule.",
+      "exact_profile_diagnosis_effect": "Not established in this curated record"
+    }
+  ],
+  "mapping_rules": [
+    {
+      "id": "map-literacy-engagement",
+      "evidence_id": "literacy-engagement",
+      "needs_any": [
+        "reading_engagement"
+      ],
+      "status": "Proposed; not validated",
+      "rationale": "Consider because the learner has a confirmed goal concerning engagement in reading. Grade and subject must also fit. Profile and diagnosis do not establish a differential treatment effect."
+    },
+    {
+      "id": "map-math-reflection",
+      "evidence_id": "math-reflection",
+      "needs_any": [
+        "math_reflection"
+      ],
+      "status": "Proposed; not validated",
+      "rationale": "Consider because the learner has a confirmed goal concerning monitoring and explaining mathematical thinking. Grade and subject must also fit. Profile and diagnosis do not establish a differential treatment effect."
+    },
+    {
+      "id": "map-math-strategies",
+      "evidence_id": "math-strategies",
+      "needs_any": [
+        "math_strategies"
+      ],
+      "status": "Proposed; not validated",
+      "rationale": "Consider because the learner has a confirmed goal concerning flexibility in mathematical strategies. Grade and subject must also fit. Profile and diagnosis do not establish a differential treatment effect."
+    },
+    {
+      "id": "map-dropout-monitor",
+      "evidence_id": "dropout-monitor",
+      "needs_any": [
+        "offtrack"
+      ],
+      "status": "Proposed; not validated",
+      "rationale": "Consider because the learner has a confirmed goal concerning attendance or progress concerns confirmed. Grade and subject must also fit. Profile and diagnosis do not establish a differential treatment effect."
+    },
+    {
+      "id": "map-dropout-support",
+      "evidence_id": "dropout-support",
+      "needs_any": [
+        "offtrack"
+      ],
+      "status": "Proposed; not validated",
+      "rationale": "Consider because the learner has a confirmed goal concerning attendance or progress concerns confirmed. Grade and subject must also fit. Profile and diagnosis do not establish a differential treatment effect."
+    },
+    {
+      "id": "map-reading-decoding",
+      "evidence_id": "reading-decoding",
+      "needs_any": [
+        "decoding"
+      ],
+      "status": "Proposed; not validated",
+      "rationale": "Consider because the learner has a confirmed goal concerning difficulty decoding longer words. Grade and subject must also fit. Profile and diagnosis do not establish a differential treatment effect."
+    },
+    {
+      "id": "map-reading-comprehension",
+      "evidence_id": "reading-comprehension",
+      "needs_any": [
+        "comprehension"
+      ],
+      "status": "Proposed; not validated",
+      "rationale": "Consider because the learner has a confirmed goal concerning reading comprehension difficulty. Grade and subject must also fit. Profile and diagnosis do not establish a differential treatment effect."
+    },
+    {
+      "id": "map-cc-stay",
+      "evidence_id": "cc-stay",
+      "needs_any": [
+        "offtrack"
+      ],
+      "status": "Proposed; not validated",
+      "rationale": "Consider because the learner has a confirmed goal concerning attendance or progress concerns confirmed. Grade and subject must also fit. Profile and diagnosis do not establish a differential treatment effect."
+    },
+    {
+      "id": "map-cc-progress",
+      "evidence_id": "cc-progress",
+      "needs_any": [
+        "offtrack"
+      ],
+      "status": "Proposed; not validated",
+      "rationale": "Consider because the learner has a confirmed goal concerning attendance or progress concerns confirmed. Grade and subject must also fit. Profile and diagnosis do not establish a differential treatment effect."
+    },
+    {
+      "id": "map-cc-complete",
+      "evidence_id": "cc-complete",
+      "needs_any": [
+        "offtrack"
+      ],
+      "status": "Proposed; not validated",
+      "rationale": "Consider because the learner has a confirmed goal concerning attendance or progress concerns confirmed. Grade and subject must also fit. Profile and diagnosis do not establish a differential treatment effect."
+    },
+    {
+      "id": "map-enrichment",
+      "evidence_id": "enrichment",
+      "needs_any": [
+        "advanced"
+      ],
+      "status": "Proposed; not validated",
+      "rationale": "Consider because the learner has a confirmed goal concerning readiness and interest for greater challenge. Grade and subject must also fit. Profile and diagnosis do not establish a differential treatment effect."
+    },
+    {
+      "id": "map-acceleration",
+      "evidence_id": "acceleration",
+      "needs_any": [
+        "advanced"
+      ],
+      "status": "Proposed; not validated",
+      "rationale": "Consider because the learner has a confirmed goal concerning readiness and interest for greater challenge. Grade and subject must also fit. Profile and diagnosis do not establish a differential treatment effect."
+    }
+  ],
+  "profile_provenance": {
+    "n": 48789,
+    "schools": 108,
+    "country": "Netherlands",
+    "indicators": 6,
+    "means_file": "Manuscript_Outputs/Table3_profile_means_D.csv",
+    "note": "Descriptive group patterns from existing LPA. No individual classifier is run. US grade and diagnosis fields belong only to fictional scenarios."
+  },
+  "wwc_snapshot": {
+    "snapshot": "20260913T203009Z-4af307708b",
+    "retrieved_at": "2026-09-13T20:30:09.437860+00:00",
+    "rows": {
+      "InterventionReports.csv": 901,
+      "Studies.csv": 18843,
+      "Findings.csv": 14482
+    },
+    "unique_study_ids": 15129,
+    "unique_review_ids": 18801,
+    "unique_intervention_ids_in_reports": 556,
+    "review_ids_with_multiple_rows": 42
+  }
+}

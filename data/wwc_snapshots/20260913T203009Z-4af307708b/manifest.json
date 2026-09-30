@@ -1,0 +1,40 @@
+{
+  "retrieved_at": "2026-09-13T20:30:09.437860+00:00",
+  "source_page": "https://ies.ed.gov/ncee/wwc/StudyFindings",
+  "endpoint": "https://ies.ed.gov/ncee/WWC/StudyFindings/AllDataExport",
+  "interface_status": "observed website export; not a documented public API",
+  "request": {
+    "FWWFilterId": "",
+    "RatingId": "",
+    "ProtocolId": "",
+    "InterventionId": "",
+    "EssaRatingId": "",
+    "StandardsVersionId": "",
+    "OutcomedomainId": "",
+    "IndividualFilesDownload": "true"
+  },
+  "sha256": "4af307708bacf80faf8856304598b26fa2d6b6154d931a336ace0dab6fff8d3b",
+  "bytes": 3298153,
+  "members": [
+    {
+      "name": "InterventionReports.csv",
+      "bytes": 217148
+    },
+    {
+      "name": "Studies.csv",
+      "bytes": 13356753
+    },
+    {
+      "name": "Findings.csv",
+      "bytes": 4634497
+    },
+    {
+      "name": "ReviewDictionary.csv",
+      "bytes": 24116
+    },
+    {
+      "name": "ReadMe.txt",
+      "bytes": 974
+    }
+  ]
+}

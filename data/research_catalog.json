@@ -1,0 +1,365 @@
+{
+  "schema_version": 1,
+  "updated": "2026-09-22",
+  "scope": "Purposeful prototype starter set; not a systematic search or complete evidence base.",
+  "publications": [
+    {
+      "id": "kim-2016",
+      "title": "Kim (2016), A Meta-Analysis of the Effects of Enrichment Programs on Gifted Students",
+      "citation": "Kim, M. (2016). Gifted Child Quarterly, 60(2), 102–116.",
+      "doi": "10.1177/0016986216630607",
+      "year": 2016,
+      "publication_type": "meta_analysis",
+      "synthesis_method": "pairwise_meta_analysis",
+      "tags": [
+        "gifted",
+        "enrichment",
+        "achievement",
+        "wellbeing"
+      ],
+      "population": "Gifted students; 26 studies",
+      "intervention": "Varied enrichment programs",
+      "comparison": "Comparators vary across studies",
+      "limitations": "Program and grade differences matter; pooled findings do not validate a local program or a profile-specific intervention.",
+      "source_url": "https://doi.org/10.1177/0016986216630607",
+      "access_basis": "publisher_abstract",
+      "locator": "Abstract",
+      "checked": "2026-09-22",
+      "review_status": "extraction_pending",
+      "appraisal": {
+        "status": "not_appraised",
+        "tool": null,
+        "judgement": null,
+        "reviewer": null
+      },
+      "overlap_status": "not_assessed",
+      "linked_library_source": "kim",
+      "wwc_rating": null
+    },
+    {
+      "id": "steenbergen-hu-2016",
+      "title": "Steenbergen-Hu, Makel, & Olszewski-Kubilius (2016), What One Hundred Years of Research Says About the Effects of Ability Grouping and Acceleration on K–12 Students’ Academic Achievement",
+      "citation": "Steenbergen-Hu, S., Makel, M. C., & Olszewski-Kubilius, P. (2016). Review of Educational Research, 86(4), 849–899.",
+      "doi": "10.3102/0034654316675417",
+      "year": 2016,
+      "publication_type": "meta_analysis",
+      "synthesis_method": "second_order_meta_analysis",
+      "tags": [
+        "gifted",
+        "acceleration",
+        "achievement"
+      ],
+      "population": "K–12 learners; multiple prior meta-analyses",
+      "intervention": "Academic acceleration",
+      "comparison": "Same-age or older nonaccelerated peers, analyzed separately",
+      "limitations": "Second-order synthesis can reuse studies; comparison groups must remain separate.",
+      "source_url": "https://doi.org/10.3102/0034654316675417",
+      "access_basis": "publisher_abstract",
+      "locator": "Abstract",
+      "checked": "2026-09-22",
+      "review_status": "extraction_pending",
+      "appraisal": {
+        "status": "not_appraised",
+        "tool": null,
+        "judgement": null,
+        "reviewer": null
+      },
+      "overlap_status": "not_assessed",
+      "linked_library_source": "accel",
+      "wwc_rating": null
+    },
+    {
+      "id": "dietrichson-2020",
+      "title": "Targeted school-based interventions for improving reading and mathematics for students with, or at risk of, academic difficulties in Grades 7–12: A systematic review",
+      "citation": "Dietrichson, J., Filges, T., Klokker, R. H., Viinholt, B. C. A., Bøg, M., & Jensen, U. H. (2020). Campbell Systematic Reviews, 16, e1081.",
+      "doi": "10.1002/cl2.1081",
+      "year": 2020,
+      "publication_type": "systematic_review",
+      "synthesis_method": "pairwise_meta_analysis",
+      "tags": [
+        "reading",
+        "math",
+        "academic_difficulties",
+        "targeted_instruction"
+      ],
+      "population": "Grades 7–12 with or at risk of academic difficulties",
+      "intervention": "Targeted school-based instruction",
+      "comparison": "Study-specific control instruction",
+      "limitations": "Mixed randomized and quasi-experimental evidence; substantial heterogeneity and limited follow-up. Components were not isolated experimentally.",
+      "source_url": "https://onlinelibrary.wiley.com/doi/10.1002/cl2.1081",
+      "access_basis": "full_text_sections",
+      "locator": "Abstract; sections 6.2 and 7.1",
+      "checked": "2026-09-22",
+      "review_status": "extraction_pending",
+      "appraisal": {
+        "status": "not_appraised",
+        "tool": null,
+        "judgement": null,
+        "reviewer": null
+      },
+      "overlap_status": "not_assessed",
+      "linked_library_source": null,
+      "wwc_rating": null
+    },
+    {
+      "id": "yegencik-2025",
+      "title": "School-based randomized controlled trials for ADHD and accompanying impairments: a systematic review and meta-analysis",
+      "citation": "Yegencik, B., Bell, B. T., & Deniz, E. (2025). Frontiers in Psychology, 16, 1611145.",
+      "doi": "10.3389/fpsyg.2025.1611145",
+      "year": 2025,
+      "publication_type": "systematic_review",
+      "synthesis_method": "pairwise_meta_analysis",
+      "tags": [
+        "ADHD",
+        "academic_skills",
+        "school_support",
+        "neurodiversity"
+      ],
+      "population": "School-age children with ADHD; 26 studies reviewed, 22 meta-analyzed",
+      "intervention": "Child-focused school interventions",
+      "comparison": "Trial-specific control conditions",
+      "limitations": "Mostly primary-school studies; heterogeneous interventions and reporter effects limit transfer to secondary or twice-exceptional learners.",
+      "source_url": "https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2025.1611145/full",
+      "access_basis": "full_text_sections",
+      "locator": "Results: study selection, academic skills, hyperactivity/impulsivity",
+      "checked": "2026-09-22",
+      "review_status": "extraction_pending",
+      "appraisal": {
+        "status": "not_appraised",
+        "tool": null,
+        "judgement": null,
+        "reviewer": null
+      },
+      "overlap_status": "not_assessed",
+      "linked_library_source": null,
+      "wwc_rating": null
+    },
+    {
+      "id": "yeager-2019",
+      "title": "A national experiment reveals where a growth mindset improves achievement",
+      "citation": "Yeager, D. S., et al. (2019). Nature, 573, 364–369.",
+      "doi": "10.1038/s41586-019-1466-y",
+      "year": 2019,
+      "publication_type": "randomized_controlled_trial",
+      "synthesis_method": "none",
+      "tags": [
+        "motivation",
+        "growth_mindset",
+        "achievement",
+        "secondary_school"
+      ],
+      "population": "12,490 US ninth graders in 65 schools; individual randomization",
+      "intervention": "Brief online growth-mindset intervention",
+      "comparison": "Randomized control condition",
+      "limitations": "Achievement subgroup and school context matter; higher achievement is not equivalent to gifted identification.",
+      "source_url": "https://www.gregorywalton.com/uploads/4/9/4/4/49448111/yeageretal2019nature.pdf",
+      "access_basis": "full_text_sections",
+      "locator": "Abstract; Methods: Participants; Extended Data Table 1",
+      "checked": "2026-09-22",
+      "review_status": "extraction_pending",
+      "appraisal": {
+        "status": "not_appraised",
+        "tool": null,
+        "judgement": null,
+        "reviewer": null
+      },
+      "overlap_status": "not_assessed",
+      "linked_library_source": null,
+      "wwc_rating": null
+    }
+  ],
+  "findings": [
+    {
+      "id": "kim-academic",
+      "publication_id": "kim-2016",
+      "outcome": "Academic achievement",
+      "population": "Gifted students",
+      "timepoint": "Varied across included studies",
+      "direction": "positive",
+      "summary": "Pooled academic benefit reported.",
+      "locator": "Abstract",
+      "effect": {
+        "metric": "Hedges g",
+        "estimate": 0.96,
+        "ci_lower": 0.64,
+        "ci_upper": 1.3,
+        "ci_level": 0.95,
+        "missing_reason": null
+      },
+      "recommendation_status": "context_only"
+    },
+    {
+      "id": "kim-socioemotional",
+      "publication_id": "kim-2016",
+      "outcome": "Socioemotional development",
+      "population": "Gifted students",
+      "timepoint": "Varied across included studies",
+      "direction": "positive",
+      "summary": "Pooled socioemotional benefit reported; not evidence of treatment for distress.",
+      "locator": "Abstract",
+      "effect": {
+        "metric": "Hedges g",
+        "estimate": 0.55,
+        "ci_lower": 0.32,
+        "ci_upper": 0.79,
+        "ci_level": 0.95,
+        "missing_reason": null
+      },
+      "recommendation_status": "context_only"
+    },
+    {
+      "id": "accel-same-age",
+      "publication_id": "steenbergen-hu-2016",
+      "outcome": "Academic achievement",
+      "population": "Accelerated learners versus same-age peers",
+      "timepoint": "Varied across syntheses",
+      "direction": "positive",
+      "summary": "Acceleration favored over same-age comparison.",
+      "locator": "Abstract",
+      "effect": {
+        "metric": "Hedges g",
+        "estimate": 0.7,
+        "ci_lower": null,
+        "ci_upper": null,
+        "ci_level": null,
+        "missing_reason": "Numerical estimate or interval not extracted; consult the source."
+      },
+      "recommendation_status": "context_only"
+    },
+    {
+      "id": "accel-older",
+      "publication_id": "steenbergen-hu-2016",
+      "outcome": "Academic achievement",
+      "population": "Accelerated learners versus older peers",
+      "timepoint": "Varied across syntheses",
+      "direction": "no_clear_effect",
+      "summary": "Difference from older nonaccelerated peers was not statistically significant.",
+      "locator": "Abstract",
+      "effect": {
+        "metric": "Hedges g",
+        "estimate": 0.09,
+        "ci_lower": null,
+        "ci_upper": null,
+        "ci_level": null,
+        "missing_reason": "Numerical estimate or interval not extracted; consult the source."
+      },
+      "recommendation_status": "context_only"
+    },
+    {
+      "id": "dietrichson-short",
+      "publication_id": "dietrichson-2020",
+      "outcome": "Reading and mathematics achievement",
+      "population": "Grades 7–12 with academic difficulties or risk",
+      "timepoint": "End of intervention",
+      "direction": "positive",
+      "summary": "Average short-run benefit with substantial variation across interventions.",
+      "locator": "Abstract; section 6.2",
+      "effect": {
+        "metric": "Standardized effect size",
+        "estimate": 0.22,
+        "ci_lower": 0.148,
+        "ci_upper": 0.284,
+        "ci_level": 0.95,
+        "missing_reason": null
+      },
+      "recommendation_status": "context_only"
+    },
+    {
+      "id": "dietrichson-followup",
+      "publication_id": "dietrichson-2020",
+      "outcome": "Reading and mathematics achievement",
+      "population": "Grades 7–12; seven studies with follow-up",
+      "timepoint": "More than three months after intervention",
+      "direction": "no_clear_effect",
+      "summary": "Follow-up estimate was uncertain; this does not prove no lasting benefit.",
+      "locator": "Abstract; section 7.1",
+      "effect": {
+        "metric": "Standardized effect size",
+        "estimate": 0.05,
+        "ci_lower": -0.096,
+        "ci_upper": 0.192,
+        "ci_level": 0.95,
+        "missing_reason": null
+      },
+      "recommendation_status": "context_only"
+    },
+    {
+      "id": "adhd-academic",
+      "publication_id": "yegencik-2025",
+      "outcome": "Academic skills",
+      "population": "School-age children with ADHD",
+      "timepoint": "Post-intervention",
+      "direction": "positive",
+      "summary": "Pooled academic skills benefit; primary-school effects exceeded secondary-school effects.",
+      "locator": "Results: Academic skills",
+      "effect": {
+        "metric": "Cohen d",
+        "estimate": 0.37,
+        "ci_lower": 0.23,
+        "ci_upper": 0.5,
+        "ci_level": 0.95,
+        "missing_reason": null
+      },
+      "recommendation_status": "context_only"
+    },
+    {
+      "id": "adhd-hyperactivity",
+      "publication_id": "yegencik-2025",
+      "outcome": "Hyperactivity/impulsivity",
+      "population": "School-age children with ADHD",
+      "timepoint": "Post-intervention",
+      "direction": "no_clear_effect",
+      "summary": "Pooled hyperactivity/impulsivity effect was not statistically significant.",
+      "locator": "Results: Hyperactivity/Impulsivity",
+      "effect": {
+        "metric": "Cohen d",
+        "estimate": -0.09,
+        "ci_lower": -0.22,
+        "ci_upper": 0.05,
+        "ci_level": 0.95,
+        "missing_reason": null
+      },
+      "recommendation_status": "context_only"
+    },
+    {
+      "id": "yeager-lower",
+      "publication_id": "yeager-2019",
+      "outcome": "Core-course GPA",
+      "population": "Ninth graders below their school achievement median",
+      "timepoint": "Ninth-grade follow-up",
+      "direction": "positive",
+      "summary": "Grades improved in the lower-achieving subgroup; school context moderated effects.",
+      "locator": "Abstract",
+      "effect": {
+        "metric": null,
+        "estimate": null,
+        "ci_lower": null,
+        "ci_upper": null,
+        "ci_level": null,
+        "missing_reason": "Numerical estimate or interval not extracted; consult the source."
+      },
+      "recommendation_status": "context_only"
+    },
+    {
+      "id": "yeager-higher",
+      "publication_id": "yeager-2019",
+      "outcome": "Core-course GPA",
+      "population": "Higher-achieving ninth graders",
+      "timepoint": "Ninth-grade follow-up",
+      "direction": "no_clear_effect",
+      "summary": "No statistically significant GPA effect in the higher-achieving subgroup.",
+      "locator": "Extended Data Table 1",
+      "effect": {
+        "metric": "GPA points",
+        "estimate": 0.01,
+        "ci_lower": -0.03,
+        "ci_upper": 0.06,
+        "ci_level": 0.95,
+        "missing_reason": null
+      },
+      "recommendation_status": "context_only"
+    }
+  ],
+  "relationships": [],
+  "wwc_links": []
+}
