@@ -100,11 +100,20 @@
     if (id) { if (event.target.checked) selected.add(id); else selected.delete(id); selectionCount(); }
   });
   $('search').addEventListener('input',function () { renderLibrary(); });
-  ['workspace','library','chat','about'].forEach(function (view) {
-    $(view + '-tab').addEventListener('click',function () {
-      ['workspace','library','chat','about'].forEach(function (v) { $(v+'-view').hidden = v !== view; $(v+'-tab').classList.toggle('active',v === view); $(v+'-tab').setAttribute('aria-pressed',String(v === view)); });
+  var tabs = {home:'workspace',workspace:'workspace',library:'library',chat:'chat',about:'about'};
+  function showTab(tab) {
+    Object.keys(tabs).forEach(function (name) {
+      $(name + '-tab').classList.toggle('active',name === tab);
+      $(name + '-tab').setAttribute('aria-pressed',String(name === tab));
     });
-  });
+    ['workspace','library','chat','about'].forEach(function (view) { $(view + '-view').hidden = view !== tabs[tab]; });
+    if (tab === 'home') { window.scrollTo({top:0,behavior:'auto'}); return; }
+    var target = tab === 'workspace' ? $('learner-workspace') : $(tab + '-view');
+    var offset = $('site-nav').getBoundingClientRect().height + 12;
+    window.scrollTo({top:Math.max(0,target.getBoundingClientRect().top + window.scrollY - offset),behavior:'auto'});
+  }
+  Object.keys(tabs).forEach(function (tab) { $(tab + '-tab').addEventListener('click',function () { showTab(tab); }); });
+  $('brand-home').addEventListener('click',function (event) { event.preventDefault(); showTab('home'); });
   $('export').addEventListener('click',function () {
     var data = AGEngine.plan(db,learner(),Array.from(selected));
     var url = URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}));

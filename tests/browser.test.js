@@ -7,6 +7,12 @@
   var marker = document.createElement('pre'); marker.id = 'browser-test-result'; document.body.appendChild(marker);
   try {
     assert(el('result-title').textContent === '3 candidates for team review','initial cards');
+    window.scrollTo(0,800);
+    assert(Math.abs(el('site-nav').getBoundingClientRect().top) <= 1,'navigation stays visible while scrolling');
+    el('workspace-tab').click();
+    assert(el('workspace-tab').getAttribute('aria-pressed') === 'true' && !el('workspace-view').hidden,'explore opens the learner tool');
+    el('home-tab').click();
+    assert(el('home-tab').getAttribute('aria-pressed') === 'true' && window.scrollY === 0 && !el('workspace-view').hidden,'home returns to the introduction');
     document.querySelector('[data-select="math-reflection"]').click();
     assert(el('selected-count').textContent === '1' && !el('export').disabled,'plan selection');
     change('preset','noor');
