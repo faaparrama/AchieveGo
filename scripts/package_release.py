@@ -11,6 +11,8 @@ REPOSITORY_FILES = [
     'AI_BOT_INTEGRATION_PLAN.md', 'RESEARCH_DATABASE.md', '.gitignore', 'vercel.json',
     'data/research_catalog.json', 'data/research_findings.csv', 'scripts/research.py', 'tests/test_research.py',
     '.github/workflows/pages.yml', 'prompts/educator-system.md',
+    'scripts/browser_check.py', 'src/state.js', 'src/workflow.js', 'tests/state.test.js', 'tests/workflow.test.js', 'FRONTEND_ENHANCEMENT_PLAN.md',
+    'assets/figure2_evidence_to_design.png', 'assets/figure3_achievego_mechanics.png',
     'src/template.html', 'src/styles.css', 'src/app.js', 'src/engine.js',
     'src/chat-engine.js', 'src/chat-app.js',
     'data/library.json', 'data/bot-config.json', 'data/evidence_index.json',
@@ -38,7 +40,7 @@ def main():
     release = ROOT / 'release'
     release.mkdir(exist_ok=True)
     with zipfile.ZipFile(release / 'achievego-static-site.zip', 'w', zipfile.ZIP_DEFLATED) as archive:
-        for name in ['index.html', '.nojekyll', 'assets/figure1_tm_cycle.png', 'data/evidence_library.csv', 'data/proposed_mappings.csv', 'data/research_findings.csv']:
+        for name in ['index.html', '.nojekyll', 'assets/figure1_tm_cycle.png', 'assets/figure2_evidence_to_design.png', 'assets/figure3_achievego_mechanics.png', 'data/evidence_library.csv', 'data/proposed_mappings.csv', 'data/research_findings.csv']:
             archive.write(ROOT / '_site' / name, name)
     with zipfile.ZipFile(release / 'achievego-github-repository.zip', 'w', zipfile.ZIP_DEFLATED) as archive:
         for path in repository_files(ROOT):

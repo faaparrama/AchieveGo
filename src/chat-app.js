@@ -11,6 +11,10 @@
   function preview() {
     var c = context(), box = $('chat-context-preview'); box.replaceChildren();
     if (!c) { box.appendChild(node('p','No scenario is included. The response will review evidence in general terms.','small muted')); return; }
+    box.appendChild(node('p','Stage: ' + window.AGWorkspace.stage() + (c.learning_goal ? '\nGoal: ' + c.learning_goal : ''),'chat-context-title'));
+    if (c.readiness) box.appendChild(node('p','Readiness (' + c.readiness_source + '): ' + c.readiness));
+    if (c.learner_account) box.appendChild(node('p','Learner account: ' + c.learner_account));
+    if (c.access_barriers) box.appendChild(node('p','Access: ' + c.access_barriers));
     box.appendChild(node('p','Grade ' + c.grade + ' · ' + (c.subject === 'any' ? 'School participation' : c.subject) + '\n' + db.profiles[c.profile].name,'chat-context-title'));
     box.appendChild(node('p','Selected goals: ' + (c.needs.map(function (n) { return db.needs[n]; }).join('; ') || 'None confirmed'), 'small'));
     box.appendChild(node('p','Documented scenario labels: ' + (c.labels.map(function (n) { return db.labels[n].name; }).join('; ') || 'None') + (c.gifted ? '. Gifted identification recorded.' : ''),'small muted'));
@@ -91,7 +95,7 @@
   $('chat-form').addEventListener('submit',function (e) { e.preventDefault(); ask($('chat-input').value,'auto'); });
   $('chat-input').addEventListener('keydown',function (e) { if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) { e.preventDefault(); ask($('chat-input').value,'auto'); } });
   document.querySelectorAll('[data-chat-task]').forEach(function (button) { button.addEventListener('click',function () { var task = button.dataset.chatTask; ask(context() ? prompts[task] : prompts[task].replace('this learner','a learner (no scenario included)'),task); }); });
-  $('chat-use-context').addEventListener('change',sync); document.addEventListener('achievego:context-change',sync);
+  $('chat-use-context').addEventListener('change',sync); document.addEventListener('achievego:context-change',sync); document.addEventListener('achievego:stage-change',sync);
   $('chat-edit-context').addEventListener('click',function () { $('workspace-tab').click(); $('preset').focus(); });
   $('chat-clear').addEventListener('click',function () { reset(); $('chat-input').focus(); });
   $('chat-export').addEventListener('click',function () {

@@ -4,7 +4,7 @@ import unittest
 from urllib.parse import urljoin, urlparse
 
 ROOT = Path(__file__).resolve().parents[1]
-PUBLIC_FILES = {'index.html', '.nojekyll', 'assets/figure1_tm_cycle.png', 'data/evidence_library.csv', 'data/proposed_mappings.csv', 'data/research_findings.csv'}
+PUBLIC_FILES = {'index.html', '.nojekyll', 'assets/figure1_tm_cycle.png', 'assets/figure2_evidence_to_design.png', 'assets/figure3_achievego_mechanics.png', 'data/evidence_library.csv', 'data/proposed_mappings.csv', 'data/research_findings.csv'}
 
 
 class Links(HTMLParser):
@@ -37,7 +37,7 @@ class SiteTests(unittest.TestCase):
 
     def test_build_contains_no_unresolved_markers_or_local_paths(self):
         html = (ROOT / '_site/index.html').read_text()
-        for marker in ['/* DATA */', '/* ENGINE */', '/* APP */', '/* STYLES */', '/* INDEX */', '/* CHAT_APP */', '/* CHAT_ENGINE */', '/* BOT_CONFIG */', '/Users/', 'file:///']:
+        for marker in ['/* STATE */', '/* WORKFLOW */', '/* DATA */', '/* ENGINE */', '/* APP */', '/* STYLES */', '/* INDEX */', '/* CHAT_APP */', '/* CHAT_ENGINE */', '/* BOT_CONFIG */', '/Users/', 'file:///']:
             self.assertNotIn(marker, html)
 
     def test_vercel_publishes_only_staged_website(self):

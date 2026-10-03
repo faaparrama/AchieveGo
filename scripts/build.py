@@ -105,6 +105,8 @@ def main():
         '/* STYLES */': (ROOT / 'src/styles.css').read_text(),
         '/* DATA */': safe_json({**db, 'research_catalog': catalog}),
         '/* ENGINE */': (ROOT / 'src/engine.js').read_text(),
+        '/* STATE */': (ROOT / 'src/state.js').read_text(),
+        '/* WORKFLOW */': (ROOT / 'src/workflow.js').read_text(),
         '/* APP */': (ROOT / 'src/app.js').read_text(),
         '/* INDEX */': safe_json(index),
         '/* BOT_CONFIG */': safe_json(config),
@@ -129,7 +131,8 @@ def main():
     (site / 'index.html').write_text(html)
     (site / '.nojekyll').write_text('')
     (site / 'assets').mkdir()
-    shutil.copyfile(ROOT / 'assets/figure1_tm_cycle.png', site / 'assets/figure1_tm_cycle.png')
+    for name in ['figure1_tm_cycle.png', 'figure2_evidence_to_design.png', 'figure3_achievego_mechanics.png']:
+        shutil.copyfile(ROOT / 'assets' / name, site / 'assets' / name)
     for name in ['evidence_library.csv', 'proposed_mappings.csv', 'research_findings.csv']:
         shutil.copyfile(ROOT / 'data' / name, site / 'data' / name)
     print(f'Built index.html, review CSVs, and _site/: {len(db["evidence_records"])} records; {len(db["sources"])} sources')

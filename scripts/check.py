@@ -20,7 +20,8 @@ script += (ROOT / 'src/engine.js').read_text() + '\n' + (ROOT / 'tests/engine.te
 script += '\nvar chatIndex = ' + (ROOT / 'data/evidence_index.json').read_text() + ';\n'
 script += 'var chatConfig = ' + (ROOT / 'data/bot-config.json').read_text() + ';\n'
 script += (ROOT / 'src/chat-engine.js').read_text() + '\n' + (ROOT / 'tests/chat.test.js').read_text()
-for name in ['app.js', 'chat-app.js']:
+script += '\n' + (ROOT / 'src/state.js').read_text() + '\n' + (ROOT / 'tests/state.test.js').read_text()
+for name in ['app.js', 'chat-app.js', 'workflow.js']:
     script += '\nnew Function(' + json.dumps((ROOT / 'src' / name).read_text()) + ');'
 script += '\nprint("App and chat JavaScript syntax passed");'
 with tempfile.TemporaryDirectory(prefix='achievego-check-') as directory:

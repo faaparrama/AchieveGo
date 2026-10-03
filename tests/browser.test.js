@@ -12,7 +12,7 @@
     el('workspace-tab').click();
     assert(el('workspace-tab').getAttribute('aria-pressed') === 'true' && !el('workspace-view').hidden,'explore opens the learner tool');
     el('home-tab').click();
-    assert(el('home-tab').getAttribute('aria-pressed') === 'true' && window.scrollY === 0 && !el('workspace-view').hidden,'home returns to the introduction');
+    assert(el('home-tab').getAttribute('aria-pressed') === 'true' && window.scrollY === 0 && !el('home-view').hidden && el('workspace-view').hidden,'home returns to the introduction');
     document.querySelector('[data-select="math-reflection"]').click();
     assert(el('selected-count').textContent === '1' && !el('export').disabled,'plan selection');
     change('preset','noor');

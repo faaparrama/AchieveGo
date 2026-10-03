@@ -46,3 +46,7 @@ Run `python3 scripts/check.py`. The checks cover source/index integrity, applica
 Source packaging now uses an explicit file allowlist. A dummy-secret test verifies that ignored `.env`, `.dev.vars`, private JSON, Vercel state, and prospective Supabase secret files do not enter the source ZIP. Public website output remains separately allowlisted.
 
 The expanded research catalog is searchable in Evidence library. It is not yet included in local chatbot retrieval or matching; see [RESEARCH_DATABASE.md](RESEARCH_DATABASE.md) for the extraction and review workflow.
+
+## Frontend workflow integration (October 3)
+
+The selected fictional case now supplies the current talent-management stage, draft learning goal, readiness source, learner account, and access barriers in the context preview. Changing cases keeps plans and observations isolated and resets the conversation. Authored responses and evidence-selection controls remain local. Application functions manage persistence and review versions; they are not tools being called by an LLM.

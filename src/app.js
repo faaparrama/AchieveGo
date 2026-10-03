@@ -19,7 +19,7 @@
     var r = row.record, source = db.sources[r.source_id];
     var caution = ['Minimal','No Discernible Effects','Potentially Positive Effects'].indexOf(r.rating) >= 0;
     var grades = r.grade_min === r.grade_max ? 'Grade ' + r.grade_min : 'Grades ' + r.grade_min + '–' + r.grade_max;
-    return '<article class="card" data-record="' + esc(r.id) + '"><p class="source-kind">' + esc(source.kind) + ' · ' + esc(source.year) + '</p><div class="card-top"><h3>' + esc(r.title) + '</h3>' + (selectable ? '<label class="check select-card"><input type="checkbox" data-select="' + esc(r.id) + '" ' + (selected.has(r.id) ? 'checked' : '') + '>Add to plan</label>' : '') + '</div>' +
+    return '<article class="card" data-record="' + esc(r.id) + '"><p class="source-kind">' + esc(source.kind) + ' · ' + esc(source.year) + '</p><div class="card-top"><h3>' + esc(r.title) + '</h3>' + (selectable ? '<label class="check select-card"><input type="checkbox" data-select="' + esc(r.id) + '" ' + (selected.has(r.id) ? 'checked' : '') + '>Add to plan</label>' : '<button data-compare="' + esc(r.id) + '" type="button">Compare</button>') + '</div>' +
       '<span class="badge ' + (caution ? 'caution' : '') + '">' + esc(r.rating) + '</span><span class="badge">' + esc(grades) + '</span>' +
       '<p class="outcome"><strong>Outcome:</strong> ' + esc(r.outcome) + '</p><p>' + esc(r.implementation) + '</p>' +
       (selectable ? '<p><strong>Goal for team review:</strong> ' + row.goals.map(function (n) { return esc(db.needs[n]); }).join(' · ') + '. The match remains unvalidated.</p>' : '<p><strong>Applicability in this scenario:</strong> ' + esc(row.reason) + '</p>') +
@@ -34,7 +34,7 @@
       '<dt>Provenance</dt><dd>' + esc(source.curation_status) + '. Checked ' + esc(source.checked) + '. ' + esc(r.snapshot ? 'Export: ' + r.snapshot : '') + '</dd></dl>' +
       '<a href="' + esc(source.url) + '" target="_blank" rel="noopener">' + esc(source.title) + ' ↗</a></details></article>';
   }
-  function selectionCount() { $('selected-count').textContent = selected.size; $('export').disabled = selected.size === 0; }
+  function selectionCount() { $('selected-count').textContent = selected.size; $('export').disabled = selected.size === 0; document.dispatchEvent(new CustomEvent('achievego:selection-change')); }
   function render() {
     var l = learner(), result = AGEngine.assess(db, l);
     selected.forEach(function (id) { if (!result.candidates.some(function (r) { return r.record.id === id; })) selected.delete(id); });
@@ -100,22 +100,62 @@
     if (id) { if (event.target.checked) selected.add(id); else selected.delete(id); selectionCount(); }
   });
   $('search').addEventListener('input',function () { renderLibrary(); });
-  var tabs = {home:'workspace',workspace:'workspace',library:'library',chat:'chat',about:'about'};
-  function showTab(tab) {
+  var tabs = {home:'home',workspace:'workspace',library:'library',chat:'chat',about:'about'};
+  var activeStage = 'understand';
+  var stageTitles = {understand:'Understand the learner',plan:'Plan enrichment and AI roles',allocate:'Allocate opportunity and support',monitor:'Monitor participation',assess:'Assess learning and transfer',review:'Revise and reallocate'};
+  function route() {
+    var parts = window.location.hash.slice(1).split('/'), tab = parts[0] || 'home';
+    tab = {evidence:'library',framework:'about',assistant:'chat'}[tab] || tab;
+    if (!tabs[tab]) tab = 'home';
+    if (tab === 'workspace') activeStage = AGState.stages.indexOf(parts[1]) >= 0 ? parts[1] : 'understand';
     Object.keys(tabs).forEach(function (name) {
-      $(name + '-tab').classList.toggle('active',name === tab);
-      $(name + '-tab').setAttribute('aria-pressed',String(name === tab));
+      $(name+'-tab').classList.toggle('active',name === tab);
+      $(name+'-tab').setAttribute('aria-pressed',String(name === tab));
+      if (name === tab) $(name+'-tab').setAttribute('aria-current','page'); else $(name+'-tab').removeAttribute('aria-current');
+      $(tabs[name]+'-view').hidden = name !== tab;
     });
-    ['workspace','library','chat','about'].forEach(function (view) { $(view + '-view').hidden = view !== tabs[tab]; });
-    if (tab === 'home') { window.scrollTo({top:0,behavior:'auto'}); return; }
-    var target = tab === 'workspace' ? $('learner-workspace') : $(tab + '-view');
-    var offset = $('site-nav').getBoundingClientRect().height + 12;
-    window.scrollTo({top:Math.max(0,target.getBoundingClientRect().top + window.scrollY - offset),behavior:'auto'});
+    document.querySelectorAll('[data-stage]').forEach(function (panel) { panel.hidden=panel.dataset.stage!==activeStage; });
+    document.querySelectorAll('[data-stage-link]').forEach(function (link) {
+      var current = link.dataset.stageLink === activeStage;
+      link.classList.toggle('active',current);
+      if (current) link.setAttribute('aria-current','step'); else link.removeAttribute('aria-current');
+    });
+    $('workspace-title').textContent=stageTitles[activeStage];
+    if (window.AGFlow) window.AGFlow.refresh();
+    document.dispatchEvent(new CustomEvent('achievego:stage-change'));
+    window.scrollTo({top:0,behavior:'auto'});
   }
-  Object.keys(tabs).forEach(function (tab) { $(tab + '-tab').addEventListener('click',function () { showTab(tab); }); });
+  function showTab(tab) {
+    var next = tab === 'workspace' ? 'workspace/'+activeStage : {library:'evidence',about:'framework',chat:'assistant'}[tab] || tab;
+    if (window.location.hash !== '#'+next) window.history.pushState(null,'','#'+next);
+    route();
+    var title = tab === 'workspace' ? $('workspace-title') : $(tabs[tab]+'-view').querySelector('h1,h2');
+    if (title) { title.setAttribute('tabindex','-1'); title.focus({preventScroll:true}); }
+  }
+  Object.keys(tabs).forEach(function (tab) { $(tab+'-tab').addEventListener('click',function () { showTab(tab); }); });
+  window.addEventListener('hashchange',route);
+  window.addEventListener('popstate',route);
+  document.querySelector('.skip-link').addEventListener('click',function(event) { event.preventDefault(); $('main-content').focus({preventScroll:true}); $('main-content').scrollIntoView({block:'start'}); });
   $('brand-home').addEventListener('click',function (event) { event.preventDefault(); showTab('home'); });
+  document.querySelectorAll('[data-open-assistant]').forEach(function (button) { button.addEventListener('click',function () { showTab('chat'); }); });
   $('export').addEventListener('click',function () {
     var data = AGEngine.plan(db,learner(),Array.from(selected));
+    if (window.AGFlow) {
+      data.frontend_review = window.AGFlow.planExport();
+      var c = data.frontend_review, d = c.draft;
+      data.review_fields.learner_goal = d.goal;
+      data.review_fields.baseline_and_measure = d.baseline;
+      data.review_fields.planned_support_and_fidelity = [d.support,d.delivery].filter(Boolean).join(' · ');
+      data.review_fields.assistance_conditions = 'Planned AI assistance: ' + d.ai + '; access accommodations: ' + (d.accommodations || 'not recorded') + '. Record independent learning with access accommodations retained as appropriate.';
+      data.review_fields.responsible_team_member = d.responsible;
+      data.review_fields.review_date = d.reviewDate;
+      data.review_fields.followup_outcome = c.observations.length ? 'Synthetic observations are in frontend_review.observations; inspect plan, measure, scale, and assistance conditions separately.' : '';
+      data.review_fields.learner_feedback = c.observations.map(function(o) { return o.date + ': ' + (o.feedback || 'not recorded'); }).join('\n');
+      if (c.reviews.length) {
+        var r = c.reviews[c.reviews.length-1], p = c.plans.find(function(p) { return p.id === r.planId; });
+        data.review_fields.decision_and_reason = 'Most recent demo review (plan ' + p.version + '): ' + r.decision + '. ' + r.rationale;
+      }
+    }
     var url = URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}));
     var a = document.createElement('a'); a.href = url; a.download = 'AchieveGo-synthetic-review-plan.json'; a.click();
     setTimeout(function () { URL.revokeObjectURL(url); },1000);
@@ -124,12 +164,19 @@
   var s = db.wwc_snapshot;
   $('snapshot').innerHTML = '<p><strong>' + s.unique_study_ids.toLocaleString() + ' distinct study IDs</strong><br>' + s.rows['Studies.csv'].toLocaleString() + ' study rows · ' + s.rows['Findings.csv'].toLocaleString() + ' finding rows · ' + s.rows['InterventionReports.csv'] + ' intervention-report rows.</p><p class="muted">Retrieved ' + esc(s.retrieved_at.slice(0,10)) + '. The raw export is retained; each planning card requires separate curation.</p>';
   window.AGWorkspace = {
-    context: function () { return JSON.parse(JSON.stringify(learner())); },
+    context: function () { return Object.assign(JSON.parse(JSON.stringify(learner())),window.AGFlow ? window.AGFlow.assistantContext() : {}); },
+    rawContext: learner, stage: function () { return activeStage; }, navigate: showTab,
+    setCase: function (c) {
+      if (!db.presets.some(function (p) { return p.id === c.id; })) { var opt=document.createElement('option'); opt.value=c.id; opt.textContent=c.name; $('preset').appendChild(opt); db.presets.push(Object.assign({id:c.id,name:c.name},c.context)); }
+      $('preset').value=c.id; ['grade','subject','profile'].forEach(function (k) { $(k).value=c.context[k]; });
+      ['needs','labels'].forEach(function (kind) { $(kind).querySelectorAll('input').forEach(function (box) { box.checked=c.context[kind].indexOf(box.value)>=0; }); });
+      $('gifted').checked=c.context.gifted; selected=new Set(c.selected); render();
+    },
     selected: function () { return Array.from(selected); },
     addEvidence: function (id) {
       if (!AGEngine.assess(db,learner()).candidates.some(function (r) { return r.record.id === id; })) return false;
       selected.add(id); render(); return true;
     }
   };
-  preset();
+  preset(); route();
 }());

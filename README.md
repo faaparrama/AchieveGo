@@ -8,20 +8,24 @@
 
 Open [**index.html**](index.html) in a browser. It is a self-contained page and works offline. Only following a source link opens an external website. No package installation, AI key, server, student-data upload, or account is needed.
 
-Start with Maya for mathematics plus challenge, Noor for an explicit well-being evidence gap, or Jordan for outcome-specific Check & Connect evidence. Select **Add to plan**, then **Export review plan** to download a JSON document for discussion. The file includes blank implementation and follow-up fields; the app does not collect actual outcomes or persist learner records.
+Start on **Home**, then open **Workspace**. In **Understand**, choose Maya and select **Fill empty fields with an authored example**. Review those fictional details, move to **Plan**, select evidence, and check feasibility in **Allocate**. Confirm the demo plan, load synthetic observations in **Monitor**, inspect assistance conditions in **Assess**, then record a decision in **Review**. Adapt the draft and confirm another version to see a traceable revision.
 
-The reviewer demo is published on **GitHub Pages**. Follow [DEPLOYMENT.md](DEPLOYMENT.md) for updates. Choose **Ask AchieveGo** to try the educator chatbot: it searches a local index and returns cited evidence with authored response templates. No AI provider is connected yet. See [CHATBOT.md](CHATBOT.md) and the [versioned system prompt](prompts/educator-system.md). Read [EVIDENCE.md](EVIDENCE.md) for research boundaries.
+Drafts, evidence selections, confirmed plan versions, synthetic observations, and reviews are saved in this browser when storage is available. Use **Export workspace** to retain a portable JSON copy; **Import workspace** validates and previews replacement. **Print plan** provides a human-readable draft. This public demonstration is for fictional information only. Browser storage is not shared or authenticated student-record infrastructure.
+
+The website has distinct Home, Workspace, Evidence, Framework & About, and Ask AchieveGo views, with hash navigation compatible with GitHub Pages. Figure 1 is on Home; Figures 2 and 3 appear in Framework & About. Evidence comparison preserves source-specific ratings. The assistant searches a local index using authored responses and includes the current stage and confirmed fictional context. No AI provider is connected. See [CHATBOT.md](CHATBOT.md), [EVIDENCE.md](EVIDENCE.md), and [the enhancement plan](FRONTEND_ENHANCEMENT_PLAN.md).
 
 ## What is included
 
--   Five fictional scenarios using selectable research profiles; no individual classifier runs.
--   Twelve planning records from seven sources, plus five research publications with ten outcome extractions. Two research publications link to existing sources; ten distinct curated sources in total.
--   Separate evidence and proposed matching records, with source dates, applicability limits, and explicit gaps.
--   A real WWC bulk snapshot, retrieval manifest, schema/checksum audit, and Check & Connect rows preserved for comparison.
--   A portable browser interface, searchable library, and review-plan export.
--   A local educator chatbot, context preview, indexed source retrieval, explicit plan additions, and conversation export.
+- Five original fictional scenarios, plus manually created fictional cases; no individual classifier runs.
+- A six-stage talent management workspace: understand, plan, allocate, monitor, assess, and review.
+- Editable learner accounts, readiness provenance, goals, access conditions, and an illustrative resource inventory.
+- Browser-local continuity, immutable plan snapshots, explicit review rationales, safe JSON import/export, and plan printing.
+- Synthetic observations; missing values and zero remain distinct. Measures, plan versions, AI assistance, and accommodations are displayed separately.
+- Twelve curated planning records from seven sources, plus five research publications with ten outcome extractions; ten distinct curated sources across both collections.
+- A retained WWC bulk snapshot, retrieval manifest, schema/checksum audit, and Check & Connect companion outcomes.
+- Source-specific evidence comparison, visible library gaps, and a local educator assistant.
 
-All extraction and matching decisions are **prototype work awaiting independent expert review**. Nothing here establishes a treatment effect for a specific profile × diagnosis combination. The enrichment card's broad grade browsing range is a prototype convention requiring program-specific review.
+All evidence extraction and matching decisions remain **prototype work awaiting independent expert review**. The frontend workflow does not establish treatment effects or validated personalization. Resource availability, authored activities, planning examples, and observations are explicitly fictional or proposed. LLM/tool use, vector retrieval, authenticated approval, notifications, and shared records are future infrastructure.
 
 ## Expanded research database
 
@@ -52,7 +56,7 @@ python3 scripts/build.py
 python3 scripts/check.py
 ```
 
-Python uses only its standard library. JavaScript tests use Node if installed, otherwise macOS JavaScriptCore. The application itself only needs a modern browser.
+Python uses only its standard library. JavaScript tests use Node if installed, otherwise macOS JavaScriptCore. Optional real-browser checks use Playwright as a development dependency: `python3 scripts/browser_check.py` after building. Install with `python3 -m pip install playwright` and, outside macOS with Chrome, `python3 -m playwright install chromium`. The browser runner uses a temporary static server and tests the GitHub project-path layout. The application itself only needs a modern browser.
 
 To inspect the retained snapshot:
 
@@ -89,3 +93,7 @@ Validation on September 22: 23 Python tests, 22 matching/export assertions and 2
 ## September 30 reviewer deployment
 
 The prototype-only repository was published to GitHub Pages. The source release rebuilt from a fresh extraction and passed 23 Python tests, 22 matching/export assertions, 20 chatbot assertions, and 33 headless-browser assertions. The GitHub Actions build and deployment succeeded. The live page and all three downloadable CSVs returned HTTP 200 and matched the locally tested build by SHA-256. These checks establish deployment and software behavior, not the educational effectiveness of recommendations.
+
+## October 3 frontend implementation
+
+Implemented the six-stage frontend workflow and responsive site structure in an isolated website checkout. The earlier journal-linked version is preserved at tag `reviewer-demo-2026-10-01`; this source is prepared for the enhanced GitHub Pages release. The build, public-file allowlist, source package, state/import integrity tests, and desktop/tablet/mobile browser workflows are checked before handoff. See DEPLOYMENT.md for publishing from the prototype-only repository.

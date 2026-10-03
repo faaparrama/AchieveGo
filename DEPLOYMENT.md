@@ -13,7 +13,7 @@ The prototype is a static website, including the local evidence chatbot. Its scr
 3. The included `vercel.json` sets **Build Command** to `python3 scripts/check.py`, **Output Directory** to `_site`, and skips dependency installation. Keep a supported Node runtime for the JavaScript checks. No environment variables or API keys are needed.
 4. Deploy. Vercel will show the resulting URL. Git-connected changes can then create deployments through Vercel's normal workflow.
 
-The build validates the library, generates the chat index, runs checks, and publishes only the static page, Figure 1 image, and curated CSVs. Source files, the raw WWC archive, system-prompt source, and future backend configuration are outside `_site/`. The prompt is not a secret, but it belongs with the future backend source rather than a browser-side provider request.
+The build validates the library, generates the chat index, runs checks, and publishes only the static page, all three figure images, and curated CSVs. Source files, the raw WWC archive, system-prompt source, and future backend configuration are outside `_site/`. The prompt is not a secret, but it belongs with the future backend source rather than a browser-side provider request.
 
 For the whole AchieveGo repository, the root `.github/workflows/pages.yml` runs checks from `prototype/` and uploads `prototype/_site/`. The workflow inside `prototype/.github/` is retained for the prototype-only source package; GitHub does not discover nested workflows. Both workflow variants run checks; GitHub Pages deployment is opt-in through `ENABLE_GITHUB_PAGES=true`, so a Vercel-only repository does not try to publish to unconfigured Pages.
 
@@ -36,7 +36,7 @@ This publishes the working demo, including interactive scenarios, search, eviden
 4. Open **Actions → Check and deploy AchieveGo → Run workflow**, choosing `main`. Subsequent pushes to `main` build, test, and deploy automatically. If the initial push ran before Pages was enabled, rerun the workflow after setting the source.
 5. Open the URL shown by the `deploy` job or Settings → Pages.
 
-The workflow installs Python 3.12 and Node 24, builds the page, and runs the evidence-integrity, matching, export, and static-site checks. It uploads **only `_site/`**, containing the page, Figure 1 image, three curated CSVs, and `.nojekyll`. The public WWC ZIP and source/testing files remain outside the website artifact. Pull requests run checks without deploying. No personal access token or repository secret is required for the supplied workflow; it uses GitHub's built-in deployment token permissions.
+The workflow installs Python 3.12 and Node 24, builds the page, and runs the evidence-integrity, matching, export, and static-site checks. It uploads **only `_site/`**, containing the page, all three figure images, three curated CSVs, and `.nojekyll`. The public WWC ZIP and source/testing files remain outside the website artifact. Pull requests run checks without deploying. No personal access token or repository secret is required for the supplied workflow; it uses GitHub's built-in deployment token permissions.
 
 If your default branch has another name, change both `branches: [main]` entries and both `refs/heads/main` deployment guards in the workflow, or rename the branch to `main`. The full AchieveGo project already includes an adapted workflow at its root `.github/workflows/`, with `working-directory: prototype` for the build step and `prototype/_site` for the artifact. Keep this root workflow and the prototype-only packaging workflow aligned when changing CI behavior. Other enclosing repository layouts require equivalent path adjustments.
 
@@ -73,3 +73,7 @@ For later updates, edit the local `prototype/src/` or curated `data/` files, run
 The setup follows GitHub's official instructions for [branch publishing](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site) and [custom Pages workflows](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages), checked September 13, 2026.
 
 The research database is regenerated locally during builds under `data/generated/`. It is excluded from the website and source ZIP; the packaged catalog, scripts, and WWC snapshot recreate it. The third website CSV is `data/research_findings.csv`.
+
+## Frontend 0.2 release preparation
+
+The enhanced source adds three figure assets, browser-local fictional workspaces, plan versions, observations, and review decisions. The site remains static and works at the existing GitHub Pages project URL. New application and test modules are included in the source allowlist. Run `python3 scripts/check.py` and the optional `python3 scripts/browser_check.py`; then `python3 scripts/package_release.py`. Keep the version linked in the manuscript available as a release snapshot before publishing an update. No provider keys or Supabase settings are required for this frontend release.
