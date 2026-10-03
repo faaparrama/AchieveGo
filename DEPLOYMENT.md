@@ -77,3 +77,9 @@ The research database is regenerated locally during builds under `data/generated
 ## Frontend 0.2 release preparation
 
 The enhanced source adds three figure assets, browser-local fictional workspaces, plan versions, observations, and review decisions. The site remains static and works at the existing GitHub Pages project URL. New application and test modules are included in the source allowlist. Run `python3 scripts/check.py` and the optional `python3 scripts/browser_check.py`; then `python3 scripts/package_release.py`. Keep the version linked in the manuscript available as a release snapshot before publishing an update. No provider keys or Supabase settings are required for this frontend release.
+
+## Pages workflow compatibility
+
+The workflow uses `ubuntu-24.04` explicitly, avoiding the announced `ubuntu-latest` migration. Pages actions now use `upload-pages-artifact@v5`, `configure-pages@v6`, and `deploy-pages@v5`. Their official releases use the current artifact action and Node 24 runtime: [upload](https://github.com/actions/upload-pages-artifact/releases/tag/v5.0.0), [configure](https://github.com/actions/configure-pages/releases/tag/v6.0.0), and [deploy](https://github.com/actions/deploy-pages/releases/tag/v5.0.1).
+
+The first frontend publication attempt passed build checks but failed while `configure-pages@v5` requested the Pages API (`Headers Timeout Error`). Owner-authorized inspection confirmed Pages was enabled with `build_type: workflow`. That failure was a hosting/API timeout, rather than evidence that Pages needed enabling. The compatible workflow versions are published for the subsequent attempt.
